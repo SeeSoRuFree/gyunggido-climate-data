@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경기도 기후 바이브코딩 해커톤 2025</title>
+    <meta name="description" content="경기도기후플랫폼과 위성·지도 데이터를 연결해 4-6시간 안에 생활과 정책에 닿는 프로토타입을 만듭니다.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2A316A;
+            --primary-green: #6DB544;
+            --primary-cyan: #1297A3;
+            --accent-yellow: #FFD96E;
+            --neon-green: #00ff88;
+            --neon-blue: #00d4ff;
+            --neon-purple: #b794f6;
+            --neon-pink: #ff006e;
+            --earth-blue: #4A90E2;
+            --earth-green: #7CB342;
+            --sky-blue: #87CEEB;
+            --forest-green: #2D5016;
+            --bg-light: #0a0a0a;
+            --bg-dark: #000000;
+            --text-light: #ffffff;
+            --text-dark: #e0e0e0;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animated grid background */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background:
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+            padding: 1.2rem 3rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.8rem 3rem;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        nav .logo {
+            height: 35px;
+            filter: brightness(0) invert(1);
+            transition: height 0.3s;
+        }
+
+        nav.scrolled .logo {
+            height: 28px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+            transition: width 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--neon-green);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .dark-mode-toggle {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--neon-green);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .dark-mode-toggle:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 50% 50%, rgba(74, 144, 226, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(124, 179, 66, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 20% 70%, rgba(135, 206, 235, 0.1) 0%, transparent 50%);
+        }
+
+        /* Earth/Planet visual */
+        .earth-orb {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 30% 30%, rgba(135, 206, 235, 0.3), transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(124, 179, 66, 0.3), transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(74, 144, 226, 0.2), transparent 60%);
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: rotate-earth 60s linear infinite;
+        }
+
+        @keyframes rotate-earth {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Geometric shapes floating */
+        .geometric-shape {
+            position: absolute;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            animation: float-shape 20s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            transform: rotate(45deg);
+            animation-delay: 3s;
+        }
+
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            animation-delay: 6s;
+        }
+
+        @keyframes float-shape {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        /* Code rain effect */
+        .code-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .code-line {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--neon-green);
+            white-space: nowrap;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-green);
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 7vw, 6rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--neon-green) 50%, var(--neon-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            line-height: 1.8;
+            opacity: 0.8;
+            max-width: 850px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.6;
+            margin-bottom: 0.3rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .meta-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--neon-green);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+            color: #000;
+            padding: 1.2rem 3.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.5);
+        }
+
+        /* Tech Stack Badge */
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-badge::before {
+            content: '●';
+            color: var(--neon-green);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 8rem 2rem;
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--neon-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff, var(--neon-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            opacity: 0.7;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            padding: 2.5rem;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .glass-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2);
+        }
+
+        .card-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.2), rgba(124, 179, 66, 0.2));
+            border: 2px solid var(--earth-blue);
+            color: #fff;
+            border-radius: 50%;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .card-description {
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        /* Terminal-style section */
+        .terminal-section {
+            background: #0a0a0a;
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .terminal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            background: rgba(30, 30, 30, 0.9);
+            padding: 0.8rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-body {
+            padding: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            line-height: 2;
+        }
+
+        .terminal-line {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .terminal-prompt {
+            color: var(--neon-green);
+        }
+
+        .terminal-command {
+            color: var(--neon-blue);
+        }
+
+        .terminal-output {
+            opacity: 0.7;
+        }
+
+        /* Data visualization */
+        .data-viz {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+
+        .data-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .data-card:hover {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .data-value {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .data-label {
+            font-size: 1rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Timeline */
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--neon-green), var(--neon-blue));
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 60px;
+            height: 60px;
+            background: var(--glass-bg);
+            border: 2px solid var(--neon-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: var(--neon-green);
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 12px;
+            flex: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-time {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-green);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Table */
+        .eval-table {
+            width: 100%;
+            max-width: 900px;
+            margin: 3rem auto;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .eval-table th,
+        .eval-table td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .eval-table th {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--neon-green);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .eval-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .score {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-green);
+            text-align: center;
+        }
+
+        /* FAQ */
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        .faq-question {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .faq-icon {
+            color: var(--neon-green);
+            transition: transform 0.3s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .faq-answer-content {
+            padding: 0 2rem 1.5rem;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        /* Form */
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 3rem;
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.7rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--neon-green);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .submit-button {
+            width: 100%;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+            color: #000;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid var(--glass-border);
+            padding: 3rem;
+            border-radius: 16px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--neon-green);
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .modal-close:hover {
+            opacity: 0.7;
+        }
+
+        .modal h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--neon-green);
+        }
+
+        .modal h3 {
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem;
+            color: var(--neon-blue);
+        }
+
+        .modal ul {
+            margin-left: 1.5rem;
+            line-height: 2;
+        }
+
+        .modal p {
+            line-height: 1.8;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+        }
+
+        footer .modal-link {
+            color: var(--neon-green);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Mobile */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--neon-green);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 1rem;
+                border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .glass-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                gap: 1.5rem;
+            }
+
+            .timeline-marker {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+
+            .eval-table th,
+            .eval-table td {
+                padding: 1rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Highlight box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+            border: 1px solid var(--neon-green);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-box h3 {
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Checkbox styling */
+        .checkbox-label {
+            display: flex;
+            align-items: start;
+            gap: 0.7rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.3rem;
+        }
+
+        .modal-link {
+            color: var(--neon-green);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated grid background -->
+    <div class="grid-background"></div>
+
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <img src="img/bi.svg" alt="경기도 기후플랫폼" class="logo">
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        <ul id="navMenu">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#challenges">Challenges</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#register">Register</a></li>
+            <li><button class="dark-mode-toggle" onclick="toggleTheme()">◐</button></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-background">
+            <div class="earth-orb"></div>
+        </div>
+
+        <!-- Geometric shapes -->
+        <div class="geometric-shape shape-1"></div>
+        <div class="geometric-shape shape-2"></div>
+        <div class="geometric-shape shape-3"></div>
+
+        <div class="hero-content">
+            <div class="hero-label" style="background: linear-gradient(135deg, rgba(74, 144, 226, 0.2), rgba(124, 179, 66, 0.2)); border-color: var(--earth-blue);">경기도 AI 바이브코딩 해커톤</div>
+            <h1>코딩 몰라도 OK!<br>AI와 함께 만드는<br><span style="color: var(--earth-blue);">기후 솔루션</span></h1>
+            <p class="hero-subtitle" style="font-size: clamp(1.2rem, 2.5vw, 1.5rem); font-weight: 400;">
+                💬 자연어로 대화하며 4-6시간 만에<br>
+                <strong style="color: var(--earth-green);">경기도민의 생명을 지키는 서비스</strong>를 완성합니다
+            </p>
+
+            <div style="background: linear-gradient(135deg, rgba(255, 217, 110, 0.15), rgba(74, 144, 226, 0.15)); padding: 1.5rem 2rem; border-radius: 12px; margin: 2rem auto; max-width: 700px; border: 2px solid rgba(255, 217, 110, 0.3);">
+                <p style="font-size: 1.1rem; line-height: 1.7;">
+                    ✨ <strong>바이브코딩이란?</strong><br>
+                    "폭염 취약지역을 지도로 보여줘" 같은<br>
+                    평범한 말로 AI와 대화하며 앱을 만드는 새로운 개발 방식
+                </p>
+            </div>
+
+            <div class="hero-meta">
+                <div class="meta-item">
+                    <div class="meta-label">일시</div>
+                    <div class="meta-value">2025.11.22 (토)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">장소</div>
+                    <div class="meta-value">경기도서관</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">시간</div>
+                    <div class="meta-value">09:00-17:10</div>
+                </div>
+            </div>
+
+            <a href="#register" class="cta-button">지금 신청하기 →</a>
+
+            <div class="tech-stack">
+                <div class="tech-badge">🌍 기후 데이터</div>
+                <div class="tech-badge">🛰️ 위성 영상</div>
+                <div class="tech-badge">🤖 AI 비서</div>
+                <div class="tech-badge">🗺️ 지도 시각화</div>
+                <div class="tech-badge">💬 자연어 대화</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who Can Join Section -->
+    <section class="section" style="background: linear-gradient(180deg, #0a0a0a 0%, #0f1419 100%); position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.2; background-image: url('data:image/svg+xml,<svg width=\"100\" height=\"100\" xmlns=\"http://www.w3.org/2000/svg\"><text x=\"10\" y=\"50\" font-size=\"40\" opacity=\"0.1\" fill=\"%237CB342\">🌱</text><text x=\"60\" y=\"80\" font-size=\"30\" opacity=\"0.1\" fill=\"%234A90E2\">🌍</text></svg>'); background-size: 200px 200px;"></div>
+        <div class="section-header fade-in-up" style="position: relative; z-index: 1;">
+            <div class="section-label">누구나 환영합니다</div>
+            <h2 class="section-title" style="font-size: clamp(2rem, 5vw, 3.5rem);">개발자가 아니어도<br><span style="font-style: italic; color: var(--earth-green);">괜찮습니다</span></h2>
+            <p class="section-description" style="max-width: 900px; font-size: 1.2rem; line-height: 1.9;">
+                기후 문제에 관심 있는 <strong style="color: var(--earth-blue);">누구나</strong> 참여할 수 있습니다<br>
+                AI가 당신의 아이디어를 실제 작동하는 앱으로 만들어줍니다
+            </p>
+        </div>
+
+        <div class="glass-grid fade-in-up" style="max-width: 1200px; margin: 3rem auto; position: relative; z-index: 1;">
+            <div class="glass-card">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">👨‍🎓</div>
+                <h3 class="card-title">대학생·청년</h3>
+                <p class="card-description">기후 문제에 관심 있는 모든 전공의 학생</p>
+            </div>
+            <div class="glass-card">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🎨</div>
+                <h3 class="card-title">기획자·디자이너</h3>
+                <p class="card-description">아이디어와 사용자 경험 설계에 강점이 있다면</p>
+            </div>
+            <div class="glass-card">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🏛️</div>
+                <h3 class="card-title">정책 담당자</h3>
+                <p class="card-description">현장의 목소리를 데이터로 해결하고 싶다면</p>
+            </div>
+            <div class="glass-card">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🌱</div>
+                <h3 class="card-title">환경 활동가</h3>
+                <p class="card-description">기후위기 해결에 기술을 활용하고 싶다면</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section id="challenges" class="section">
+        <div class="section-header fade-in-up">
+            <div class="section-label">우리가 만들 기후 솔루션</div>
+            <h2 class="section-title">3가지 생명을 지키는 미션</h2>
+            <p class="section-description">현장에서 공개되는 미션 중 하나를 선택해 완성합니다</p>
+        </div>
+
+        <div class="glass-grid fade-in-up">
+            <div class="glass-card">
+                <div class="card-number">🌡️</div>
+                <h3 class="card-title">열섬 취약지역 인사이트 보드</h3>
+                <p class="card-description">위성(SWIR/RGB) × 인구/고령층 교차 분석을 통한 완화 행동 카드 제시</p>
+                <div style="margin-top: 1rem; padding: 0.5rem 1rem; background: rgba(74, 144, 226, 0.1); border-radius: 6px; font-size: 0.85rem; color: var(--earth-blue);">
+                    폭염 취약지역 식별 및 대응
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-number">💧</div>
+                <h3 class="card-title">침수 위험 & 대피 접근성 맵</h3>
+                <p class="card-description">위험구역 × 취약시설 × 보행 접근성 랭킹 시각화</p>
+                <div style="margin-top: 1rem; padding: 0.5rem 1rem; background: rgba(74, 144, 226, 0.1); border-radius: 6px; font-size: 0.85rem; color: var(--earth-blue);">
+                    극한강우 대비 생명 보호
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-number">🌫️</div>
+                <h3 class="card-title">대기질 6시간 전망 대시보드</h3>
+                <p class="card-description">시계열·풍장 데이터 기반 임계치 경보 표시</p>
+                <div style="margin-top: 1rem; padding: 0.5rem 1rem; background: rgba(74, 144, 226, 0.1); border-radius: 6px; font-size: 0.85rem; color: var(--earth-blue);">
+                    대기오염 실시간 모니터링
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vibe Coding Experience Section -->
+    <section class="terminal-section">
+        <div class="section-header fade-in-up">
+            <div class="section-label">바이브코딩 체험</div>
+            <h2 class="section-title">AI와 대화하며<br>앱을 만드는 경험</h2>
+            <p class="section-description" style="font-size: 1.1rem; max-width: 800px;">
+                복잡한 코드 대신, 평범한 말로 AI에게 요청하면<br>
+                실제 작동하는 웹 앱이 완성됩니다
+            </p>
+        </div>
+
+        <div class="terminal-container fade-in-up">
+            <div class="terminal-header">
+                <div class="terminal-dot dot-red"></div>
+                <div class="terminal-dot dot-yellow"></div>
+                <div class="terminal-dot dot-green"></div>
+                <span style="margin-left: 1rem; opacity: 0.7; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">💬 AI와 대화중...</span>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line">
+                    <span class="terminal-prompt">👤</span>
+                    <span style="color: var(--earth-blue);">"경기도 폭염 취약지역을 지도에 표시해줘"</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-prompt">🤖</span>
+                    <span class="terminal-output">✓ 경기도 기후 데이터 불러오는 중...</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-output" style="margin-left: 2rem;">✓ 위성 온도 데이터 분석 완료</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-output" style="margin-left: 2rem;">✓ 지도 위에 시각화 완료</span>
+                </div>
+                <div class="terminal-line" style="margin-top: 1rem;">
+                    <span class="terminal-prompt">👤</span>
+                    <span style="color: var(--earth-blue);">"고령층 인구 데이터도 겹쳐서 보여줘"</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-prompt">🤖</span>
+                    <span class="terminal-output">✓ 고령층 데이터 추가 완료! 가장 위험한 지역 3곳을 강조했습니다.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-viz fade-in-up">
+            <div class="data-card">
+                <div class="data-value">0</div>
+                <div class="data-label">코딩 경험 필요</div>
+            </div>
+            <div class="data-card">
+                <div class="data-value">4-6시간</div>
+                <div class="data-label">앱 완성 시간</div>
+            </div>
+            <div class="data-card">
+                <div class="data-value">∞</div>
+                <div class="data-label">기후 임팩트</div>
+            </div>
+        </div>
+
+        <div style="max-width: 900px; margin: 4rem auto 0; text-align: center; padding: 2.5rem; background: linear-gradient(135deg, rgba(74, 144, 226, 0.15), rgba(124, 179, 66, 0.15)); border-radius: 16px; border: 2px solid rgba(124, 179, 66, 0.4);">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--earth-green);">🎯 현장에서 배우는 것들</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; text-align: left;">
+                <div>
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💬</div>
+                    <strong>AI와 대화하기</strong><br>
+                    <span style="opacity: 0.8; font-size: 0.95rem;">자연어로 요청하는 법</span>
+                </div>
+                <div>
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🗺️</div>
+                    <strong>데이터 시각화</strong><br>
+                    <span style="opacity: 0.8; font-size: 0.95rem;">지도에 정보 표시하기</span>
+                </div>
+                <div>
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🌍</div>
+                    <strong>기후 데이터 활용</strong><br>
+                    <span style="opacity: 0.8; font-size: 0.95rem;">위성·센서 데이터 해석</span>
+                </div>
+                <div>
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🚀</div>
+                    <strong>앱 배포하기</strong><br>
+                    <span style="opacity: 0.8; font-size: 0.95rem;">누구나 쓸 수 있게 공개</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evaluation Section -->
+    <section id="evaluation" class="section">
+        <div class="section-header fade-in-up">
+            <div class="section-label">심사 및 시상</div>
+            <h2 class="section-title">무엇을 평가하나요?</h2>
+            <p class="section-description">코딩 실력보다 <strong style="color: var(--earth-blue);">아이디어와 문제 해결력</strong>을 중심으로 평가합니다</p>
+        </div>
+
+        <table class="eval-table fade-in-up">
+            <thead>
+                <tr>
+                    <th>평가 항목</th>
+                    <th style="width: 120px; text-align: center;">배점</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>💡 얼마나 실제 문제를 해결하는가?</td>
+                    <td class="score">20</td>
+                </tr>
+                <tr>
+                    <td>🌍 기후 데이터를 잘 활용했는가?</td>
+                    <td class="score">20</td>
+                </tr>
+                <tr>
+                    <td>✅ 실제로 작동하는가?</td>
+                    <td class="score">25</td>
+                </tr>
+                <tr>
+                    <td>👥 사람들이 쉽게 사용할 수 있는가?</td>
+                    <td class="score">15</td>
+                </tr>
+                <tr>
+                    <td>📢 스토리와 설득력이 있는가?</td>
+                    <td class="score">15</td>
+                </tr>
+                <tr>
+                    <td>🤖 AI를 창의적으로 활용했는가?</td>
+                    <td class="score">5</td>
+                </tr>
+                <tr style="background: rgba(74, 144, 226, 0.1);">
+                    <td style="font-weight: 700;">합계</td>
+                    <td class="score">100</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="max-width: 700px; margin: 3rem auto; padding: 2rem; background: linear-gradient(135deg, rgba(255, 217, 110, 0.1), rgba(74, 144, 226, 0.1)); border-radius: 12px; border: 1px solid rgba(255, 217, 110, 0.3); text-align: center;">
+            <p style="font-size: 1.1rem; line-height: 1.8;">
+                🏆 우수작은 본행사 무대에서 발표하고<br>
+                시상식을 진행합니다
+            </p>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="section">
+        <div class="section-header fade-in-up">
+            <div class="section-label">하루 일정</div>
+            <h2 class="section-title">어떻게 진행되나요?</h2>
+        </div>
+
+        <div class="timeline fade-in-up">
+            <div class="timeline-item">
+                <div class="timeline-marker">09:00</div>
+                <div class="timeline-content">
+                    <div class="timeline-time">09:00 - 09:40</div>
+                    <div class="timeline-title">등록 · 네트워킹</div>
+                    <p style="opacity: 0.7;">참가자 체크인 및 팀 매칭</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">09:40</div>
+                <div class="timeline-content">
+                    <div class="timeline-time">09:40 - 10:00</div>
+                    <div class="timeline-title">오프닝 · 미션 공개</div>
+                    <p style="opacity: 0.7;">해커톤 소개 및 3가지 챌린지 발표</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">10:00</div>
+                <div class="timeline-content">
+                    <div class="timeline-time">10:00 - 15:30</div>
+                    <div class="timeline-title">제작 스프린트 🚀</div>
+                    <p style="opacity: 0.7;">개발 및 구현 (점심 포함) · 14:00 체크포인트</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">15:30</div>
+                <div class="timeline-content">
+                    <div class="timeline-time">15:30 - 16:00</div>
+                    <div class="timeline-title">코드 프리즈 ❄️</div>
+                    <p style="opacity: 0.7;">최종 제출물 업로드</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker">16:10</div>
+                <div class="timeline-content">
+                    <div class="timeline-time">16:10 - 17:10</div>
+                    <div class="timeline-title">팀 피치 & 심사 🏆</div>
+                    <p style="opacity: 0.7;">발표 및 내부 심사 → 2부 본행사 시상 연계</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section">
+        <div class="section-header fade-in-up">
+            <div class="section-label">자주 묻는 질문</div>
+            <h2 class="section-title">궁금한 점이 있나요?</h2>
+        </div>
+
+        <div class="faq-container fade-in-up">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>💻 코딩을 전혀 못해도 참가할 수 있나요?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        네! AI 바이브코딩은 코딩 경험이 없어도 참여할 수 있습니다. AI에게 평범한 말로 요청하면 앱을 만들어주기 때문에, 오히려 좋은 아이디어와 문제 해결 의지가 더 중요합니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>👥 혼자 와도 괜찮을까요?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        물론입니다! 개인으로 신청하시면 현장에서 비슷한 관심사를 가진 분들과 팀을 만들 수 있도록 도와드립니다. 등록 시간(09:00-09:40)에 팀 매칭 세션이 진행됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>🎯 어떤 것을 배울 수 있나요?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        AI와 대화하며 앱을 만드는 바이브코딩 방법, 기후 데이터 해석법, 지도 시각화 기술, 그리고 무엇보다 실제 문제를 기술로 해결하는 경험을 얻을 수 있습니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>🏆 상금이나 시상이 있나요?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        우수작은 본행사 무대에서 발표하고 시상식을 진행합니다. 구체적인 시상 내용과 부상은 별도로 공지됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>📚 사전에 준비해야 할 것이 있나요?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        해커톤 전 온라인 사전 교육(1-Day Pre-Academy)을 제공합니다. 수료하시면 최대 5점 가점도 받을 수 있어요. 리플레이 영상도 제공되니 시간이 안 맞아도 걱정하지 마세요!
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>💻 노트북을 가져가야 하나요?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        개인 노트북을 가져오셔도 좋지만, 현장에 준비된 PC를 사용하실 수도 있습니다. 현장 PC에는 필요한 모든 환경이 이미 설정되어 있어 바로 시작할 수 있습니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">✨ 이런 분들을 기다립니다</h3>
+                <div style="display: grid; gap: 1rem; text-align: left;">
+                    <p>✅ 기후위기 해결에 기여하고 싶은 분</p>
+                    <p>✅ AI 기술을 직접 경험해보고 싶은 분</p>
+                    <p>✅ 데이터로 문제를 해결하는 법을 배우고 싶은 분</p>
+                    <p>✅ 포트폴리오를 만들고 싶은 대학생·청년</p>
+                    <p style="margin-top: 1rem; padding: 1rem; background: rgba(255, 217, 110, 0.2); border-radius: 8px; font-weight: 600;">
+                        💡 코딩 경험이 없어도 괜찮습니다! AI가 함께합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="section">
+        <div class="section-header fade-in-up">
+            <div class="section-label">지금 신청하세요</div>
+            <h2 class="section-title">함께 지구를 지켜요</h2>
+            <p class="section-description" style="font-size: 1.1rem;">
+                기후위기 해결의 첫걸음,<br>
+                당신의 아이디어가 실제 서비스가 되는 경험을 시작하세요
+            </p>
+        </div>
+
+        <div class="form-container fade-in-up">
+            <form id="registrationForm" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">이름 *</label>
+                    <input type="text" id="name" name="name" required placeholder="홍길동">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">이메일 *</label>
+                    <input type="email" id="email" name="email" required placeholder="hello@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">연락처 *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="010-1234-5678">
+                </div>
+
+                <div class="form-group">
+                    <label for="affiliation">소속</label>
+                    <input type="text" id="affiliation" name="affiliation" placeholder="대학교, 회사명 등">
+                </div>
+
+                <div class="form-group">
+                    <label for="teamType">참가 형태 *</label>
+                    <select id="teamType" name="teamType" required>
+                        <option value="">선택해주세요</option>
+                        <option value="individual">개인 참가</option>
+                        <option value="team">팀 참가 (2-3명)</option>
+                        <option value="matching">팀 매칭 희망</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">개발 경험 (선택)</label>
+                    <textarea id="experience" name="experience" rows="3" placeholder="간단히 작성해주세요"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" required>
+                        <span>
+                            <span class="modal-link" onclick="openModal('terms')">이용약관</span> 및
+                            <span class="modal-link" onclick="openModal('privacy')">개인정보 처리방침</span>에 동의합니다 *
+                        </span>
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-button">Submit Application</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--neon-green);">경기도 기후 바이브코딩 해커톤 2025</p>
+        <p style="opacity: 0.7; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">hackathon@example.com</p>
+        <p style="opacity: 0.5; margin-top: 2rem; font-size: 0.85rem;">
+            <span class="modal-link" onclick="openModal('terms')">이용약관</span> |
+            <span class="modal-link" onclick="openModal('privacy')">개인정보 처리방침</span>
+        </p>
+    </footer>
+
+    <!-- Modals -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('terms')">&times;</button>
+            <h2>이용약관</h2>
+            <h3>규정·정책</h3>
+            <ul>
+                <li>오픈데이터만 사용, 출처·라이선스 명시(앱/슬라이드/README)</li>
+                <li>개인정보·민감정보 금지, 외부 비공개 데이터 사용 시 실격</li>
+                <li>라이선스 권장: 코드 MIT, 문서/슬라이드 CC BY 4.0</li>
+                <li>결과물은 행사 종료 후 아카이브 공개(재현성 중시)</li>
+            </ul>
+            <h3>참가자 준수사항</h3>
+            <p>- 모든 제출물은 해커톤 당일 작성된 것이어야 합니다</p>
+            <p>- 타인의 코드를 무단으로 사용할 수 없습니다</p>
+            <p>- 주최측의 결정에 이의를 제기할 수 없습니다</p>
+        </div>
+    </div>
+
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('privacy')">&times;</button>
+            <h2>개인정보 처리방침</h2>
+            <h3>수집하는 개인정보</h3>
+            <p>이름, 이메일, 연락처, 소속 정보</p>
+            <h3>개인정보의 이용 목적</h3>
+            <p>- 해커톤 참가자 확인 및 관리</p>
+            <p>- 행사 관련 공지사항 전달</p>
+            <p>- 시상 및 사후 관리</p>
+            <h3>개인정보의 보유 및 이용 기간</h3>
+            <p>행사 종료 후 1년간 보관 후 파기</p>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle (kept for compatibility)
+        function toggleTheme() {
+            // Currently always dark theme for hackathon feel
+            console.log('Theme: Dark mode enabled');
+        }
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Open clicked FAQ if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Modal Functions
+        function openModal(type) {
+            document.getElementById(type + 'Modal').classList.add('active');
+        }
+
+        function closeModal(type) {
+            document.getElementById(type + 'Modal').classList.remove('active');
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+
+        // Form Submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            console.log('Form submitted:', data);
+            alert('신청이 완료되었습니다!\n\n입력하신 이메일로 확인 메일을 발송했습니다.');
+            event.target.reset();
+        }
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in-up');
+            fadeElements.forEach(el => observer.observe(el));
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    document.getElementById('navMenu').classList.remove('active');
+                }
+            });
+        });
+
+        // Nav scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('mainNav');
+            if (window.pageYOffset > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

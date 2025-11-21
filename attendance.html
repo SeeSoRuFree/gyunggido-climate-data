@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경기도 AI 해커톤 출석 체크</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #0A0E1A 0%, #1a2332 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(109, 181, 68, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(109, 181, 68, 0.3);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #6DB544;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .scanner-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(109, 181, 68, 0.3);
+        }
+
+        #reader {
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .status-message.success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+            display: block;
+        }
+
+        .status-message.error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid #f44336;
+            color: #f44336;
+            display: block;
+        }
+
+        .status-message.duplicate {
+            background: rgba(255, 152, 0, 0.2);
+            border: 1px solid #FF9800;
+            color: #FF9800;
+            display: block;
+        }
+
+        .recent-checkins {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(109, 181, 68, 0.2);
+        }
+
+        .recent-checkins h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #6DB544;
+        }
+
+        .checkin-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid #6DB544;
+        }
+
+        .checkin-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .checkin-name {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .checkin-details {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .no-checkins {
+            text-align: center;
+            opacity: 0.5;
+            padding: 20px;
+        }
+
+        .error-page {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .error-page h1 {
+            color: #f44336;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .error-page p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.7;
+        }
+
+        .spinner {
+            border: 3px solid rgba(109, 181, 68, 0.3);
+            border-top: 3px solid #6DB544;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .scan-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        #qr-shaded-region {
+            border: 2px solid #6DB544 !important;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <header>
+            <h1>📋 경기도 AI 해커톤 출석 체크</h1>
+            <div class="subtitle">2025년 11월 29일 (토)</div>
+        </header>
+
+        <div class="scanner-container">
+            <div id="reader"></div>
+            <div class="status-message" id="statusMessage"></div>
+        </div>
+
+        <div class="recent-checkins">
+            <h2>📌 최근 체크인 목록</h2>
+            <div id="recentList">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <div>로딩 중...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- html5-qrcode 라이브러리 -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+    <script>
+        // ⚠️ Google Apps Script Web App URL
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxrE8z8gCVVj6p809mpjcbBFG4MRuhI1gQLxtoIX2_uGRnoFZ10GD344NQ5yTg6k4ozqg/exec';
+        const VALID_TOKEN = 'HACKATHON2025SECRET';  // 보안 토큰 (원하는 값으로 변경 가능)
+
+        // 스캔 중복 방지를 위한 변수
+        let lastScannedCode = '';
+        let lastScanTime = 0;
+        let isProcessing = false;
+
+        // URL에서 토큰 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+
+        if (token !== VALID_TOKEN) {
+            document.getElementById('app').innerHTML = `
+                <div class="error-page">
+                    <h1>🚫 접근 권한 없음</h1>
+                    <p>유효한 접근 링크가 아닙니다.<br>담당자에게 문의하세요.</p>
+                </div>
+            `;
+        } else {
+            initializeScanner();
+            loadRecentCheckIns();
+            // 30초마다 최근 목록 자동 갱신
+            setInterval(loadRecentCheckIns, 30000);
+        }
+
+        // QR 스캐너 초기화
+        function initializeScanner() {
+            const html5QrCode = new Html5Qrcode("reader");
+
+            const config = {
+                fps: 10,
+                qrbox: { width: 250, height: 250 },
+                aspectRatio: 1.0
+            };
+
+            html5QrCode.start(
+                { facingMode: "environment" },  // 후면 카메라 사용
+                config,
+                onScanSuccess,
+                onScanFailure
+            ).catch(err => {
+                console.error('카메라 시작 실패:', err);
+                showMessage('error', '카메라 접근 권한을 허용해주세요.');
+            });
+        }
+
+        // QR 스캔 성공 시
+        function onScanSuccess(decodedText, decodedResult) {
+            console.log('QR 스캔 결과:', decodedText);
+
+            // 중복 스캔 방지 (3초 이내 같은 코드 무시)
+            const now = Date.now();
+            if (isProcessing || (decodedText === lastScannedCode && now - lastScanTime < 3000)) {
+                return;
+            }
+
+            // HK2025로 시작하는 QR 코드만 처리
+            if (!decodedText.startsWith('HK2025-')) {
+                showMessage('error', '올바른 해커톤 QR 코드가 아닙니다.');
+                return;
+            }
+
+            lastScannedCode = decodedText;
+            lastScanTime = now;
+            isProcessing = true;
+
+            checkInAttendee(decodedText);
+        }
+
+        // QR 스캔 실패 시 (무시)
+        function onScanFailure(error) {
+            // 스캔 중에는 계속 에러가 발생하므로 무시
+        }
+
+        // 출석 체크인 처리
+        async function checkInAttendee(uniqueId) {
+            try {
+                const url = `${SCRIPT_URL}?action=checkIn&id=${encodeURIComponent(uniqueId)}`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    showMessage('success', `✅ ${data.name}님 체크인 완료!\n${data.track} | ${data.checkInTime}`);
+                    loadRecentCheckIns();  // 최근 목록 즉시 갱신
+                } else if (data.status === 'duplicate') {
+                    showMessage('duplicate', `⚠️ ${data.message}\n체크인 시간: ${data.checkInTime}`);
+                } else {
+                    showMessage('error', `❌ ${data.message}`);
+                }
+            } catch (error) {
+                console.error('체크인 오류:', error);
+                showMessage('error', '❌ 체크인 처리 중 오류가 발생했습니다.');
+            } finally {
+                // 3초 후 다시 스캔 가능하도록
+                setTimeout(() => {
+                    isProcessing = false;
+                }, 3000);
+            }
+        }
+
+        // 최근 체크인 목록 로드
+        async function loadRecentCheckIns() {
+            try {
+                const url = `${SCRIPT_URL}?action=getRecent`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                const listContainer = document.getElementById('recentList');
+
+                if (data.status === 'success' && data.recent.length > 0) {
+                    listContainer.innerHTML = data.recent.map(item => `
+                        <div class="checkin-item">
+                            <div class="checkin-name">${item.name}</div>
+                            <div class="checkin-details">${item.track} • ${item.checkInTime}</div>
+                        </div>
+                    `).join('');
+                } else {
+                    listContainer.innerHTML = '<div class="no-checkins">아직 체크인한 참가자가 없습니다.</div>';
+                }
+            } catch (error) {
+                console.error('목록 로드 오류:', error);
+                document.getElementById('recentList').innerHTML =
+                    '<div class="no-checkins">목록을 불러올 수 없습니다.</div>';
+            }
+        }
+
+        // 상태 메시지 표시
+        function showMessage(type, message) {
+            const messageEl = document.getElementById('statusMessage');
+            messageEl.className = `status-message ${type}`;
+            messageEl.innerHTML = message.replace(/\n/g, '<br>');
+            messageEl.style.display = 'block';  // 명시적으로 표시
+
+            // 5초 후 메시지 숨기기
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
