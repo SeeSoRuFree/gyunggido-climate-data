@@ -184,15 +184,27 @@
 
         .hero h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: clamp(3rem, 8vw, 7rem);
+            font-size: clamp(2.5rem, 6vw, 5rem);
             font-weight: 900;
-            line-height: 1.1;
+            line-height: 1.2;
             margin-bottom: 2rem;
             background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -0.03em;
+        }
+
+        .hero-title-line1,
+        .hero-title-line2 {
+            display: block;
+        }
+
+        @media (min-width: 769px) {
+            .hero-title-line1::after {
+                content: "";
+                display: block;
+            }
         }
 
         .hero h1 .gradient-text {
@@ -1058,6 +1070,97 @@
             box-shadow: 0 0 60px rgba(109, 181, 68, 0.6);
         }
 
+        /* Custom Select Dropdown */
+        .custom-select {
+            position: relative;
+            width: 100%;
+            user-select: none;
+        }
+
+        .custom-select-trigger {
+            width: 100%;
+            padding: 1.2rem;
+            border: 1px solid rgba(109, 181, 68, 0.3);
+            border-radius: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .custom-select-trigger:hover {
+            border-color: var(--neon-green);
+        }
+
+        .custom-select.active .custom-select-trigger {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 0 4px rgba(109, 181, 68, 0.1);
+        }
+
+        .custom-select-text {
+            flex: 1;
+        }
+
+        .custom-select-arrow {
+            transition: transform 0.3s;
+            margin-left: 0.5rem;
+        }
+
+        .custom-select.active .custom-select-arrow {
+            transform: rotate(180deg);
+        }
+
+        .custom-select-options {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background: rgba(26, 31, 53, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(109, 181, 68, 0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 100;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .custom-select.active .custom-select-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .custom-option {
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 1px solid rgba(109, 181, 68, 0.1);
+        }
+
+        .custom-option:last-child {
+            border-bottom: none;
+        }
+
+        .custom-option:hover {
+            background: rgba(109, 181, 68, 0.15);
+            color: var(--neon-green);
+        }
+
+        .custom-option.selected {
+            background: rgba(109, 181, 68, 0.2);
+            color: var(--neon-green);
+            font-weight: 600;
+        }
+
         /* Footer with Video Background */
         footer {
             position: relative;
@@ -1185,7 +1288,8 @@
             }
 
             .hero-stats {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
             .data-showcase-grid {
@@ -1280,9 +1384,14 @@
                 display: flex;
             }
 
-            .hero-stats {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .hero-subtitle {
+                word-break: keep-all;
+                overflow-wrap: break-word;
+                padding: 0 0.5rem;
             }
 
             .form-container {
@@ -1292,6 +1401,230 @@
             .legend-items {
                 flex-direction: column;
                 gap: 1rem;
+            }
+
+            /* 타임라인 범례 숨기기 (모바일) */
+            .timeline-legend {
+                display: none;
+            }
+
+            /* 모바일 섹션 여백 축소 */
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-header {
+                margin-bottom: 3rem;
+            }
+
+            /* 타임라인 모바일 단순화 - 세로형 */
+            .timeline::before {
+                left: 20px;
+                width: 2px;
+                opacity: 0.2;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 0;
+                margin-bottom: 1.5rem;
+            }
+
+            .timeline-center {
+                position: absolute;
+                left: 0;
+                top: 0;
+                min-width: auto;
+            }
+
+            .timeline-time {
+                font-size: 0.85rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+                padding: 0.4rem 0.8rem;
+                background: rgba(26, 31, 53, 0.8);
+                border: 1px solid rgba(109, 181, 68, 0.2);
+            }
+
+            .timeline-dot {
+                display: none;
+            }
+
+            .timeline-left,
+            .timeline-right {
+                margin-left: 45px;
+            }
+
+            .timeline-content {
+                padding: 1rem;
+                border-radius: 12px;
+                backdrop-filter: blur(10px);
+            }
+
+            .timeline-content:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            .timeline-badge {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.65rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .timeline-title {
+                font-size: 0.95rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .timeline-desc {
+                font-size: 0.8rem;
+            }
+
+            .mobile-track-selector {
+                display: flex;
+                margin-bottom: 2rem;
+            }
+
+            .track-selector-btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            /* 5개 데이터 카드 모바일 가로 스크롤 */
+            .data-categories-grid {
+                display: flex !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory;
+                gap: 1rem !important;
+                padding: 1rem 1.5rem !important;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                scrollbar-color: rgba(109, 181, 68, 0.5) transparent;
+            }
+
+            .data-categories-grid > div {
+                min-width: 280px !important;
+                max-width: 280px !important;
+                scroll-snap-align: start;
+                flex-shrink: 0;
+            }
+
+            /* Claude Features 3개 모바일 가로 스크롤 */
+            .claude-features {
+                display: flex !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory;
+                gap: 1rem !important;
+                padding: 1rem 1.5rem !important;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                scrollbar-color: rgba(109, 181, 68, 0.5) transparent;
+            }
+
+            .claude-feature {
+                min-width: 300px !important;
+                max-width: 300px !important;
+                scroll-snap-align: start;
+                flex-shrink: 0;
+            }
+
+            /* Tracks Comparison 2개 -> 모바일 1열 */
+            .tracks-comparison {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            .track-card {
+                padding: 2.5rem 2rem !important;
+            }
+
+            /* Judging grid 모바일 가로 스크롤 */
+            .judging-grid {
+                display: flex !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory;
+                gap: 1.5rem !important;
+                padding: 1rem 1.5rem !important;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                scrollbar-color: rgba(109, 181, 68, 0.5) transparent;
+            }
+
+            .judging-grid > div {
+                min-width: 300px !important;
+                max-width: 300px !important;
+                scroll-snap-align: start;
+                flex-shrink: 0;
+            }
+
+            .judging-grid::-webkit-scrollbar {
+                height: 6px;
+            }
+
+            .judging-grid::-webkit-scrollbar-track {
+                background: rgba(109, 181, 68, 0.1);
+                border-radius: 10px;
+            }
+
+            .judging-grid::-webkit-scrollbar-thumb {
+                background: rgba(109, 181, 68, 0.5);
+                border-radius: 10px;
+            }
+
+            .judging-grid::-webkit-scrollbar-thumb:hover {
+                background: rgba(109, 181, 68, 0.7);
+            }
+
+            /* Platform intro grid 모바일 가로 스크롤 */
+            .platform-intro-grid {
+                display: flex !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory;
+                gap: 1rem !important;
+                padding: 1rem 1.5rem !important;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                scrollbar-color: rgba(109, 181, 68, 0.5) transparent;
+            }
+
+            .platform-card {
+                min-width: 280px !important;
+                max-width: 280px !important;
+                scroll-snap-align: start;
+                flex-shrink: 0;
+            }
+
+            /* 커스텀 스크롤바 (WebKit) */
+            .data-categories-grid::-webkit-scrollbar,
+            .claude-features::-webkit-scrollbar,
+            .platform-intro-grid::-webkit-scrollbar {
+                height: 6px;
+            }
+
+            .data-categories-grid::-webkit-scrollbar-track,
+            .claude-features::-webkit-scrollbar-track,
+            .platform-intro-grid::-webkit-scrollbar-track {
+                background: rgba(109, 181, 68, 0.1);
+                border-radius: 10px;
+            }
+
+            .data-categories-grid::-webkit-scrollbar-thumb,
+            .claude-features::-webkit-scrollbar-thumb,
+            .platform-intro-grid::-webkit-scrollbar-thumb {
+                background: rgba(109, 181, 68, 0.5);
+                border-radius: 10px;
+            }
+
+            .data-categories-grid::-webkit-scrollbar-thumb:hover,
+            .claude-features::-webkit-scrollbar-thumb:hover,
+            .platform-intro-grid::-webkit-scrollbar-thumb:hover {
+                background: rgba(109, 181, 68, 0.7);
+            }
+
+            /* Data showcase grid 모바일 1열 */
+            .data-showcase-grid {
+                grid-template-columns: 1fr !important;
             }
         }
 
@@ -1488,7 +1821,7 @@
 
     <!-- Navigation -->
     <nav>
-        <img src="img/bi.svg" alt="경기도 기후플랫폼" class="logo">
+        <a href="#"><img src="img/bi.svg" alt="경기도 기후플랫폼" class="logo"></a>
         <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
         <ul id="navMenu">
             <li><a href="#tracks">트랙</a></li>
@@ -1505,28 +1838,23 @@
                 🚀 경기도 기후 AI 해커톤 2025
             </div>
             <h1>
-                경기도 기후 데이터를<br>
-                활용한 바이브코딩 기반<br>
-                <span class="gradient-text">해커톤!</span>
+                <span class="hero-title-line1">경기도 기후 데이터를 활용한</span>
+                <span class="hero-title-line2">바이브코딩 해커톤</span>
             </h1>
             <p class="hero-subtitle">
-                실시간 기후 데이터를 생명을 지키는 서비스로 전환하세요.<br>
-                데이터 분석부터 실제 프로토타입까지, 단 하루만에.
+                경기도 기후플랫폼의 실제 데이터를 바탕으로 아이디어 → AI 코드 생성 → 작동하는 서비스까지 단 하루 만에 완성해보는 실전형 AI 해커톤
             </p>
 
             <div class="hero-cta-group">
                 <a href="#register" class="cta-button">
                     지금 신청하기 →
                 </a>
-                <a href="https://climate.gg.go.kr/ips" target="_blank" class="cta-button secondary">
-                    경기 기후플랫폼 둘러보기 🌍
-                </a>
             </div>
 
             <div class="hero-stats">
                 <div class="stat-card">
-                    <span class="stat-number">11.29</span>
-                    <span class="stat-label">2025년 11월 29일 (토)</span>
+                    <span class="stat-number">11.29(토)</span>
+                    <span class="stat-label">9시~16시</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">2개</span>
@@ -1553,9 +1881,20 @@
                 디지털 기후 거버넌스의 허브
             </h2>
             <p class="section-description">
-                세계 최고 수준의 초고해상도 LiDAR 데이터로 구축한<br>
-                경기도 디지털 트윈 생태계
+                경기도는 세계 최고 수준의 초고해상도 LiDAR 촬영을 통해 경기도 전역을 3D로 복제한 디지털 트윈 기반 기후데이터 생태계를 구축했습니다.
             </p>
+            <p class="section-description">
+                폭염, 홍수, 산사태, 탄소배출, 태양광 잠재량까지— 현실을 정밀하게 반영한 데이터를 누구나 활용할 수 있습니다.
+            </p>
+            <p class="section-description">
+                이번 해커톤은 이 공공 데이터 인프라를 직접 활용하는 최초의 AI 기반 대회입니다.
+            </p>
+        </div>
+
+        <div style="text-align: center; margin: 3rem 0;">
+            <a href="https://climate.gg.go.kr/ips" target="_blank" class="cta-button secondary">
+                경기 기후플랫폼 둘러보기 🌍
+            </a>
         </div>
 
         <div class="platform-intro-grid">
@@ -1595,11 +1934,10 @@
             <div class="section-label">02. DATA</div>
             <h2 class="section-title">
                 <span class="gradient-text">600+ 데이터셋</span>으로<br>
-                혁신적인 솔루션을 만드세요
+                기후해결 아이디어를!
             </h2>
             <p class="section-description">
-                5개 핵심 카테고리, 600개 이상의 실시간 데이터셋<br>
-                WMS/WFS API로 즉시 접근 가능한 경기도 전역 기후 데이터
+                5개 핵심 카테고리, 600개 이상의 실시간 데이터셋을 활용해서 기후해결을 위한 자신만의 아이디어를 현실화해볼수 있습니다.
             </p>
         </div>
 
@@ -1647,7 +1985,7 @@
 
         <!-- Data Categories Detail -->
         <div style="max-width: 1400px; margin: 5rem auto 0;">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+            <div class="data-categories-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 2rem;">
                 <div
                     style="background: rgba(26, 31, 53, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(109, 181, 68, 0.2); border-radius: 20px; padding: 2rem;">
                     <div style="font-size: 2rem; margin-bottom: 1rem;">🌊</div>
@@ -1743,18 +2081,19 @@
         <div class="section-header">
             <div class="section-label">03. AI VIBE CODING</div>
             <h2 class="section-title">
-                <span class="gradient-text">AI 바이브코딩</span><br>
-                해커톤의 새로운 패러다임
+                AI 협업 코딩의 시대
             </h2>
+            <p class="section-description" style="font-size: 1.5rem; font-weight: 600; margin: 2rem 0;">
+                "코딩을 하는 것이 아니라, AI에게 코드를 시킨다"
+            </p>
         </div>
 
         <div class="vibe-coding-content">
-            <div class="large-icon">🤖✨</div>
-            <h3>코드가 아니라 아이디어로 경쟁하세요</h3>
-            <p>
-                전통적인 코딩 해커톤이 아닙니다.<br>
-                AI와 협업하여 자연어로 소통하고, 프롬프트로 개발하고, 실시간으로 프로토타입을 만드는<br>
-                <strong style="color: var(--neon-green);">새로운 형태의 해커톤</strong>입니다.
+            <p style="font-size: 1.2rem; line-height: 2; max-width: 900px; margin: 0 auto 3rem; color: rgba(255, 255, 255, 0.9);">
+                바이브코딩은 자연어로 서비스와 분석을 만드는 방식입니다. 데이터 로딩, 그래프 생성, 지도 시각화, 웹 UI 구성까지 모두 AI가 수행합니다.
+            </p>
+            <p style="font-size: 1.2rem; line-height: 2; max-width: 900px; margin: 0 auto; color: rgba(255, 255, 255, 0.9);">
+                참가자는 <strong style="color: var(--neon-green);">문제를 정의하는 사람</strong>, AI는 <strong style="color: var(--neon-cyan);">그 해결책을 구현하는 파트너</strong>가 됩니다.
             </p>
         </div>
     </section>
@@ -1764,32 +2103,57 @@
         <div class="section-header">
             <div class="section-label">04. CLAUDE CODE</div>
             <h2 class="section-title">
-                <span class="gradient-text">Claude Code</span>로<br>
-                누구나 개발자가 됩니다
+                1~2시간 교육 후,<br>
+                <span class="gradient-text">누구나 개발자</span>
             </h2>
             <p class="section-description">
-                IT 지식이 없어도 괜찮습니다. 아이디어와 열정만 가져오세요.<br>
-                <strong style="color: var(--neon-yellow);">1~2시간 교육 후, 자연어만으로 웹사이트와 서비스를 만들 수 있습니다.</strong>
+                이번 해커톤에는 <strong style="color: var(--neon-green);">클로드코드(Claude Code)</strong> 가 전면 도입됩니다.
+            </p>
+        </div>
+
+        <div class="vibe-coding-content" style="margin: 3rem auto;">
+            <p style="font-size: 1.3rem; line-height: 2; max-width: 900px; margin: 0 auto 2rem; color: rgba(255, 255, 255, 0.95);">
+                1~2시간의 교육만 받으면 <strong style="color: var(--neon-cyan); font-size: 1.4rem;">"텍스트로 설명 → 서비스 자동 생성"</strong>
+            </p>
+            <p style="font-size: 1.1rem; line-height: 2; max-width: 900px; margin: 0 auto; color: rgba(255, 255, 255, 0.85);">
+                기후 데이터 분석, 지도 시각화, 스트림릿 웹서비스까지 자동 구현합니다.
+            </p>
+        </div>
+
+        <div style="background: rgba(109, 181, 68, 0.1); border: 2px solid rgba(109, 181, 68, 0.3); border-radius: 20px; padding: 2.5rem; max-width: 900px; margin: 3rem auto;">
+            <p style="font-size: 1.1rem; line-height: 2; margin-bottom: 1.5rem; color: rgba(255, 255, 255, 0.9);">
+                <strong style="color: var(--neon-yellow);">이 교육은 일반적으로</strong>
+            </p>
+            <p style="font-size: 1rem; line-height: 2; margin-left: 1.5rem; color: rgba(255, 255, 255, 0.85);">
+                💰 프리미엄 교육: 약 200만 원 상당<br>
+                💰 온라인 강의: 최소 20~30만 원 수준
+            </p>
+            <p style="font-size: 1.2rem; line-height: 2; margin-top: 2rem; font-weight: 700; color: var(--neon-green);">
+                하지만 이번 해커톤에서는 전 참가자에게 무료 제공됩니다. <span style="color: rgba(255, 255, 255, 0.9); font-weight: 500;">곧바로 배운 내용을 가지고 실제 해커톤에 참여하게 됩니다.</span>
+            </p>
+            <p style="font-size: 1rem; line-height: 2; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(109, 181, 68, 0.3); color: rgba(255, 255, 255, 0.8);">
+                ℹ️ 이 교육은 바이브코딩 전문 기업 <a href="https://second-team.com/" target="_blank" style="color: var(--neon-cyan); text-decoration: none; font-weight: 700;">시소(Second Team)</a>가 제공합니다.<br>
+                <span style="font-size: 0.9rem; opacity: 0.8;">바이브코딩 교육, 해커톤 운영, AI 외주 개발 전문</span>
             </p>
         </div>
 
         <div class="claude-features">
             <div class="claude-feature">
-                <span class="icon">💬</span>
-                <h4>자연어로 소통</h4>
-                <p>"지도에 홍수 위험 지역을 표시해줘"라고 말하면 Claude Code가 즉시 구현합니다.</p>
+                <span class="icon">🎓</span>
+                <h4>무료 프리미엄 교육</h4>
+                <p>200만원 상당의 클로드코드 교육을 무료로 제공. 바이브코딩을 배우고 싶은 일반인도 환영합니다!</p>
             </div>
 
             <div class="claude-feature">
                 <span class="icon">⚡</span>
-                <h4>실시간 프로토타입</h4>
-                <p>아이디어 → 프롬프트 → 코드 → 실행 → 개선, 이 모든 과정이 몇 분 안에 완성됩니다.</p>
+                <h4>즉시 실전 적용</h4>
+                <p>교육 직후 바로 해커톤에 참여. 배운 내용을 곧바로 실전에 적용하는 유니크한 경험!</p>
             </div>
 
             <div class="claude-feature">
-                <span class="icon">🎓</span>
-                <h4>누구나 사용 가능</h4>
-                <p>비전공자, 기획자, 디자이너도 2시간 교육이면 충분합니다. 코딩 경험 불필요!</p>
+                <span class="icon">💬</span>
+                <h4>자연어로 개발</h4>
+                <p>"지도에 홍수 위험 지역을 표시해줘" → Claude Code가 즉시 구현. 코딩 경험 불필요!</p>
             </div>
         </div>
     </section>
@@ -1799,45 +2163,54 @@
         <div class="section-header">
             <div class="section-label">05. TWO TRACKS</div>
             <h2 class="section-title">
-                당신에게 맞는<br>
-                <span class="gradient-text">완벽한 트랙을 선택하세요</span>
+                두 개의 트랙,<br>
+                <span class="gradient-text">하나의 목표</span>
             </h2>
             <p class="section-description">
-                일반 부문과 개발 부문, 두 가지 트랙으로 구성됩니다.<br>
-                당신의 수준과 목표에 맞는 트랙을 선택하세요.
+                이번 해커톤은 일반 부문과 전문가 부문으로 진행되며, 특히 일반 부문의 경우 바이브코딩 교육과 함께 진행됩니다.
+            </p>
+            <p class="section-description">
+                <strong style="color: var(--neon-yellow);">두 트랙 모두 AI 심사 + 사람 심사를 통해 공정하게 평가합니다.</strong>
             </p>
         </div>
 
         <div class="tracks-comparison">
             <div class="track-card general">
-                <div class="track-badge">일반 트랙</div>
-                <div class="track-title">배우고 만들기</div>
-                <div class="track-subtitle">2시간 교육 + 해커톤</div>
+                <div class="track-badge">① 일반 부문</div>
+                <div class="track-title">Education → Hack</div>
+                <div class="track-subtitle">초심자도 환영</div>
 
                 <div class="track-features">
                     <div class="track-feature">
-                        <div class="track-feature-icon">✓</div>
+                        <div class="track-feature-icon">🎓</div>
                         <div>
-                            <strong>무료 교육 제공</strong>
-                            <span>Claude Code 2시간 집중 교육으로 AI 협업 개발의 기초를 배웁니다</span>
+                            <strong>오전 2시간 교육 제공</strong>
+                            <span>AI 바이브코딩 + 기후데이터 활용 교육을 무료로 제공합니다</span>
                         </div>
                     </div>
                     <div class="track-feature">
-                        <div class="track-feature-icon">✓</div>
+                        <div class="track-feature-icon">⚡</div>
                         <div>
-                            <strong>아이디어로 승부</strong>
-                            <span>데이터를 활용한 창의적인 아이디어와 문제 해결 능력으로 평가받습니다</span>
+                            <strong>교육 후 즉시 실전</strong>
+                            <span>교육 후 즉시 경기도기후플랫폼 데이터로 아이디어를 실현합니다</span>
                         </div>
                     </div>
                     <div class="track-feature">
-                        <div class="track-feature-icon">✓</div>
+                        <div class="track-feature-icon">💡</div>
+                        <div>
+                            <strong>아이디어 중심</strong>
+                            <span>실행 가능한 프로토타입 제작. 창의적인 아이디어와 문제 해결 능력 중심 평가</span>
+                        </div>
+                    </div>
+                    <div class="track-feature">
+                        <div class="track-feature-icon">💻</div>
                         <div>
                             <strong>개인 PC 사용</strong>
                             <span>본인의 노트북으로 참여하며, Claude Code 유료계정이 임시 제공됩니다</span>
                         </div>
                     </div>
                     <div class="track-feature">
-                        <div class="track-feature-icon">✓</div>
+                        <div class="track-feature-icon">📊</div>
                         <div>
                             <strong>평가 기준</strong>
                             <span>데이터 이해 40% | 구현도 30% | 공익성 30%</span>
@@ -1847,34 +2220,41 @@
             </div>
 
             <div class="track-card expert">
-                <div class="track-badge">개발 트랙</div>
-                <div class="track-title">바로 개발하기</div>
-                <div class="track-subtitle">심화 해커톤</div>
+                <div class="track-badge">② 전문가 부문</div>
+                <div class="track-title">Hack Only</div>
+                <div class="track-subtitle">개발자, 데이터 분석가, AI 실무자용</div>
 
                 <div class="track-features">
                     <div class="track-feature">
-                        <div class="track-feature-icon">✓</div>
+                        <div class="track-feature-icon">🚀</div>
                         <div>
-                            <strong>데이터 과제 제공</strong>
+                            <strong>즉시 미션 수행</strong>
+                            <span>준비된 Claude Code 환경에서 즉시 해커톤 미션을 시작합니다</span>
+                        </div>
+                    </div>
+                    <div class="track-feature">
+                        <div class="track-feature-icon">🔬</div>
+                        <div>
+                            <strong>고도화된 솔루션 제작</strong>
+                            <span>고도화된 기후데이터 기반 솔루션 제작에 도전합니다</span>
+                        </div>
+                    </div>
+                    <div class="track-feature">
+                        <div class="track-feature-icon">🎯</div>
+                        <div>
+                            <strong>실제 기후 과제</strong>
                             <span>실제 경기도 기후 과제를 기반으로 한 미션이 제공됩니다</span>
                         </div>
                     </div>
                     <div class="track-feature">
-                        <div class="track-feature-icon">✓</div>
-                        <div>
-                            <strong>즉시 구현</strong>
-                            <span>교육 없이 바로 고급 구현과 최적화로 돌입합니다</span>
-                        </div>
-                    </div>
-                    <div class="track-feature">
-                        <div class="track-feature-icon">✓</div>
+                        <div class="track-feature-icon">💻</div>
                         <div>
                             <strong>개인 PC 사용</strong>
                             <span>본인의 노트북으로 참여하며, Claude Code 유료계정이 임시 제공됩니다</span>
                         </div>
                     </div>
                     <div class="track-feature">
-                        <div class="track-feature-icon">✓</div>
+                        <div class="track-feature-icon">📊</div>
                         <div>
                             <strong>평가 기준</strong>
                             <span>기술 완성도 40% | 정책 임팩트 30% | 혁신성 30%</span>
@@ -1950,8 +2330,8 @@
                         </tr>
                         <tr>
                             <td style="padding: 1.5rem; text-align: center; font-weight: 700; font-size: 1.1rem;">🥉 우수상</td>
-                            <td style="padding: 1.5rem; text-align: center; border-left: 1px solid rgba(109, 181, 68, 0.1); font-weight: 800; font-size: 1.3rem; color: var(--neon-cyan);">40만원 (1팀)</td>
-                            <td style="padding: 1.5rem; text-align: center; border-left: 1px solid rgba(109, 181, 68, 0.1); font-weight: 800; font-size: 1.3rem; color: var(--neon-green);">10만원 (2팀)</td>
+                            <td style="padding: 1.5rem; text-align: center; border-left: 1px solid rgba(109, 181, 68, 0.1); font-weight: 800; font-size: 1.3rem; color: var(--neon-cyan);">40만원</td>
+                            <td style="padding: 1.5rem; text-align: center; border-left: 1px solid rgba(109, 181, 68, 0.1); font-weight: 800; font-size: 1.3rem; color: var(--neon-green);">10만원 x 2</td>
                         </tr>
                         <tr style="background: rgba(109, 181, 68, 0.1);">
                             <td style="padding: 1.5rem; text-align: center; border-top: 2px solid rgba(109, 181, 68, 0.3); font-weight: 800; font-size: 1.1rem;">총 상금</td>
@@ -2004,10 +2384,10 @@
             <div class="section-label">07. SCHEDULE</div>
             <h2 class="section-title">
                 하루,<br>
-                <span class="gradient-text">무한한 가능성</span>
+                <span class="gradient-text">11월29일(토)</span>
             </h2>
             <p class="section-description">
-                📅 2025년 11월 29일 (토) 09:00-16:00 | 📍 경기도의회 대회의실<br>
+                📍 경기도의회 대회의실 (<a href="https://map.naver.com/p/search/경기도의회?c=14.00,0,0,0,dh" target="_blank" style="color: var(--neon-green); text-decoration: underline;">네이버지도</a>, <a href="https://map.kakao.com/?q=경기도의회" target="_blank" style="color: var(--neon-green); text-decoration: underline;">카카오지도</a>)<br><br>
                 ⚠️ 점심식사는 별도로 제공되지 않습니다
             </p>
         </div>
@@ -2120,7 +2500,11 @@
                     <div class="timeline-dot"></div>
                 </div>
                 <div class="timeline-right">
-                    <!-- 개발 트랙은 이 시간에 계속 개발 중 -->
+                    <div class="timeline-content expert-track">
+                        <div class="timeline-badge expert">개발 트랙</div>
+                        <div class="timeline-title">개발</div>
+                        <div class="timeline-desc">09:50 ~ 14:50 진행 중</div>
+                    </div>
                 </div>
             </div>
 
@@ -2292,7 +2676,17 @@
 
                 <div class="form-group">
                     <label for="division">트랙 *</label>
-                    <select id="division" name="division" required>
+                    <div class="custom-select" data-target="division">
+                        <div class="custom-select-trigger">
+                            <span class="custom-select-text">트랙을 선택하세요</span>
+                            <span class="custom-select-arrow">▼</span>
+                        </div>
+                        <div class="custom-select-options">
+                            <div class="custom-option" data-value="general">일반 트랙 (교육 + 해커톤)</div>
+                            <div class="custom-option" data-value="expert">개발 트랙 (심화 해커톤)</div>
+                        </div>
+                    </div>
+                    <select id="division" name="division" required style="display: none;">
                         <option value="">트랙을 선택하세요</option>
                         <option value="general">일반 트랙 (교육 + 해커톤)</option>
                         <option value="expert">개발 트랙 (심화 해커톤)</option>
@@ -2301,7 +2695,17 @@
 
                 <div class="form-group">
                     <label for="os">운영체제 *</label>
-                    <select id="os" name="os" required>
+                    <div class="custom-select" data-target="os">
+                        <div class="custom-select-trigger">
+                            <span class="custom-select-text">운영체제를 선택하세요</span>
+                            <span class="custom-select-arrow">▼</span>
+                        </div>
+                        <div class="custom-select-options">
+                            <div class="custom-option" data-value="Windows">Windows</div>
+                            <div class="custom-option" data-value="Mac">Mac</div>
+                        </div>
+                    </div>
+                    <select id="os" name="os" required style="display: none;">
                         <option value="">운영체제를 선택하세요</option>
                         <option value="Windows">Windows</option>
                         <option value="Mac">Mac</option>
@@ -2375,18 +2779,21 @@
             </video>
         </div>
         <div class="footer-content">
-            <div class="footer-logo">
-                <img src="img/bi.svg" alt="경기도 기후플랫폼" style="height: 40px; filter: brightness(0) invert(1);">
-            </div>
-            <p style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">경기도 AI 바이브코딩 해커톤 2025</p>
-            <p style="opacity: 0.8; margin-bottom: 0.5rem;">문의: partner@seeso.kr</p>
-            <p style="opacity: 0.8; margin-bottom: 0.5rem;">📅 2025년 11월 29일 (토) | 📍 경기도의회 대회의실</p>
-            <p style="opacity: 0.6; font-size: 0.9rem; margin-top: 1.5rem; font-style: italic;">
-                💡 이 사이트도 Claude의 바이브코딩으로 제작되었습니다
+            <p style="font-size: 1rem; opacity: 0.85; line-height: 1.8; margin-bottom: 2rem;">
+                이번 행사는 AI dev Agency 시소에서 운영합니다. 행사 및 시소에 대해 궁금하시면 <a href="about.html" style="color: var(--neon-cyan); text-decoration: underline; font-weight: 600;">About 페이지</a>를 확인해보세요.
             </p>
-            <div class="footer-links">
-                <a href="#" onclick="openModal('terms'); return false;">이용약관</a> |
-                <a href="#" onclick="openModal('privacy'); return false;">개인정보처리방침</a>
+
+            <!-- Contact & Info -->
+            <div style="padding-top: 2rem; border-top: 1px solid rgba(109, 181, 68, 0.2);">
+                <p style="opacity: 0.8; margin-bottom: 0.5rem; font-size: 0.95rem;">문의: partner@seeso.kr</p>
+                <p style="opacity: 0.8; margin-bottom: 0.5rem; font-size: 0.95rem;">📅 2025년 11월 29일 (토) | 📍 경기도의회 대회의실</p>
+                <div class="footer-links" style="margin-top: 1.5rem;">
+                    <a href="#" onclick="openModal('terms'); return false;">이용약관</a> |
+                    <a href="#" onclick="openModal('privacy'); return false;">개인정보처리방침</a>
+                </div>
+                <p style="opacity: 0.5; font-size: 0.85rem; margin-top: 1.5rem;">
+                    운영: 시소(Second Team) | 주최: 경기도의회
+                </p>
             </div>
         </div>
     </footer>
@@ -2581,6 +2988,63 @@
             document.getElementById('navMenu').classList.toggle('active');
         }
 
+        // Custom Select Dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+            const customSelects = document.querySelectorAll('.custom-select');
+
+            customSelects.forEach(function(customSelect) {
+                const trigger = customSelect.querySelector('.custom-select-trigger');
+                const options = customSelect.querySelectorAll('.custom-option');
+                const selectText = customSelect.querySelector('.custom-select-text');
+                const targetId = customSelect.getAttribute('data-target');
+                const realSelect = document.getElementById(targetId);
+
+                // Toggle dropdown
+                trigger.addEventListener('click', function(e) {
+                    e.stopPropagation();
+
+                    // Close other dropdowns
+                    customSelects.forEach(function(other) {
+                        if (other !== customSelect) {
+                            other.classList.remove('active');
+                        }
+                    });
+
+                    customSelect.classList.toggle('active');
+                });
+
+                // Select option
+                options.forEach(function(option) {
+                    option.addEventListener('click', function(e) {
+                        e.stopPropagation();
+
+                        const value = this.getAttribute('data-value');
+                        const text = this.textContent;
+
+                        // Update visual
+                        selectText.textContent = text;
+
+                        // Update real select
+                        realSelect.value = value;
+
+                        // Update selected state
+                        options.forEach(opt => opt.classList.remove('selected'));
+                        this.classList.add('selected');
+
+                        // Close dropdown
+                        customSelect.classList.remove('active');
+                    });
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function() {
+                customSelects.forEach(function(customSelect) {
+                    customSelect.classList.remove('active');
+                });
+            });
+        });
+
         // FAQ Toggle
         function toggleFAQ(element) {
             const faqItem = element.parentElement;
@@ -2621,14 +3085,14 @@
                 modal.style.display = 'flex';
                 // Force reflow to trigger animation
                 modal.offsetHeight;
-                modal.classList.add('show');
+                modal.classList.add('active');
             }
         }
 
         function hideLoading() {
             const modal = document.getElementById('loadingModal');
             if (modal) {
-                modal.classList.remove('show');
+                modal.classList.remove('active');
                 setTimeout(() => {
                     modal.style.display = 'none';
                 }, 300);
@@ -2644,11 +3108,11 @@
             if (modal && icon && titleEl && messageEl) {
                 // Set content based on type
                 if (type === 'success') {
-                    icon.textContent = '✓';
+                    icon.textContent = '🌱🎉';
                     icon.className = 'result-icon success';
                     modal.className = 'custom-modal result-modal success';
                 } else {
-                    icon.textContent = '✕';
+                    icon.textContent = '⚠️';
                     icon.className = 'result-icon error';
                     modal.className = 'custom-modal result-modal error';
                 }
@@ -2659,14 +3123,14 @@
                 modal.style.display = 'flex';
                 // Force reflow to trigger animation
                 modal.offsetHeight;
-                modal.classList.add('show');
+                modal.classList.add('active');
             }
         }
 
         function closeResultModal() {
             const modal = document.getElementById('resultModal');
             if (modal) {
-                modal.classList.remove('show');
+                modal.classList.remove('active');
                 setTimeout(() => {
                     modal.style.display = 'none';
                 }, 300);
@@ -2717,7 +3181,7 @@
 
                 // Show success modal
                 setTimeout(() => {
-                    showResult('success', '신청이 완료되었습니다!', '확인 이메일이 전송되었습니다.\n곧 연락드리겠습니다.\n\n💡 이 폼도 바이브코딩으로 만들어졌어요!');
+                    showResult('success', '신청이 완료되었습니다!', '접수 확인 이메일이 발송되었습니다.\n입장 QR코드는 이메일로 제공됩니다.\n\n💡 이 폼도 바이브코딩으로 만들어졌어요!');
                 }, 300);
 
                 // Reset form
@@ -2794,7 +3258,7 @@
         <div class="custom-modal-content loading-content">
             <div class="loading-spinner">
                 <div class="spinner-ring"></div>
-                <div class="spinner-icon">🌍</div>
+                <div class="spinner-icon">💻⚡</div>
             </div>
             <h3>신청서를 제출하는 중입니다...</h3>
             <p>잠시만 기다려주세요</p>
