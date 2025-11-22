@@ -6,11 +6,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>경기도 AI 바이브코딩 해커톤 2025</title>
     <meta name="description" content="경기도 기후 데이터를 활용한 바이브코딩 기반 해커톤! AI와 함께 실제 임팩트를 만드세요.">
+    <meta name="keywords" content="경기도, 해커톤, AI, 바이브코딩, 기후, 데이터, Claude Code, 개발자, 경기도의회">
+    <meta name="author" content="Second Team">
+    <link rel="canonical" href="https://climate-gg.second-team.com/">
+
+    <!-- 파비콘 -->
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://climate-gg.second-team.com/">
+    <meta property="og:title" content="경기도 AI 바이브코딩 해커톤 2025">
+    <meta property="og:description" content="경기도 기후 데이터를 활용한 바이브코딩 기반 해커톤! AI와 함께 실제 임팩트를 만드세요.">
+    <meta property="og:image" content="https://climate-gg.second-team.com/img/clmstllt_keyTitle2.png">
+    <meta property="og:locale" content="ko_KR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://climate-gg.second-team.com/">
+    <meta name="twitter:title" content="경기도 AI 바이브코딩 해커톤 2025">
+    <meta name="twitter:description" content="경기도 기후 데이터를 활용한 바이브코딩 기반 해커톤! AI와 함께 실제 임팩트를 만드세요.">
+    <meta name="twitter:image" content="https://climate-gg.second-team.com/img/clmstllt_keyTitle2.png">
+
+    <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+
+    <!-- Schema.org 구조화된 데이터 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "경기도 AI 바이브코딩 해커톤 2025",
+      "startDate": "2025-12-13T09:00",
+      "endDate": "2025-12-13T16:00",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "경기도의회 대회의실",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "경기도",
+          "addressCountry": "KR"
+        }
+      },
+      "image": "https://climate-gg.second-team.com/img/clmstllt_keyTitle2.png",
+      "description": "경기도 기후 데이터를 활용한 AI 바이브코딩 해커톤. Claude Code와 함께 실제 임팩트를 만드세요.",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://climate-gg.second-team.com/#register",
+        "price": "0",
+        "priceCurrency": "KRW",
+        "availability": "https://schema.org/InStock"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "경기도",
+        "url": "https://climate-gg.second-team.com"
+      },
+      "performer": {
+        "@type": "Organization",
+        "name": "Second Team"
+      }
+    }
+    </script>
     <style>
         :root {
             --primary-navy: #2A316A;
@@ -145,6 +211,11 @@
             transform: translateY(-2px);
             box-shadow: 0 0 30px rgba(109, 181, 68, 0.5);
             color: white;
+        }
+
+        /* Desktop: Hide mobile nav elements */
+        .mobile-register-top {
+            display: none;
         }
 
         /* Hero Section with Video Background */
@@ -1360,28 +1431,72 @@
 
         @media (max-width: 768px) {
             nav {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                grid-template-rows: auto auto;
+                gap: 0.8rem;
                 padding: 1rem 1.5rem;
             }
 
-            .mobile-menu-toggle {
-                display: block;
+            .logo-link {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            .logo-link .logo {
+                height: 28px;
+            }
+
+            .mobile-register-top {
+                display: block !important;
+                grid-column: 2;
+                grid-row: 1;
+            }
+
+            .mobile-register-top .register-btn {
+                font-size: 0.85rem;
+                padding: 0.5rem 1.2rem;
+            }
+
+            .desktop-register {
+                display: none !important;
+            }
+
+            nav ul.nav-bottom {
+                grid-column: 1 / -1;
+                grid-row: 2;
             }
 
             nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(10, 14, 26, 0.98);
-                flex-direction: column;
-                padding: 2rem;
+                display: flex !important;
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                padding: 0;
                 gap: 1.5rem;
-                border-top: 1px solid rgba(109, 181, 68, 0.2);
+                background: none;
+                border-top: none;
             }
 
-            nav ul.active {
-                display: flex;
+            nav ul li a {
+                font-size: 0.9rem;
+                padding: 0;
+            }
+
+            /* 스크롤 방향에 따른 메뉴 숨김/표시 */
+            nav ul.nav-bottom {
+                transition: transform 0.3s ease, opacity 0.3s ease, max-height 0.3s ease;
+                transform: translateY(0);
+                opacity: 1;
+                max-height: 50px;
+                overflow: hidden;
+            }
+
+            nav ul.nav-bottom.hidden {
+                transform: translateY(-10px);
+                opacity: 0;
+                max-height: 0;
+                pointer-events: none;
             }
 
             .hero-content {
@@ -1821,13 +1936,17 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="#"><img src="img/bi.svg" alt="경기도 기후플랫폼" class="logo"></a>
-        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
-        <ul id="navMenu">
+        <a href="#" class="logo-link">
+            <img src="img/bi.svg" alt="경기도 기후플랫폼" class="logo">
+        </a>
+        <div class="mobile-register-top">
+            <a href="#register" class="register-btn">신청하기</a>
+        </div>
+        <ul id="navMenu" class="nav-bottom">
             <li><a href="#tracks">트랙</a></li>
             <li><a href="#schedule">일정</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="#register" class="register-btn">신청하기</a></li>
+            <li class="desktop-register"><a href="#register" class="register-btn">신청하기</a></li>
         </ul>
     </nav>
 
@@ -1853,7 +1972,7 @@
 
             <div class="hero-stats">
                 <div class="stat-card">
-                    <span class="stat-number">11.29(토)</span>
+                    <span class="stat-number">12.13(토)</span>
                     <span class="stat-label">9시~16시</span>
                 </div>
                 <div class="stat-card">
@@ -2786,13 +2905,13 @@
             <!-- Contact & Info -->
             <div style="padding-top: 2rem; border-top: 1px solid rgba(109, 181, 68, 0.2);">
                 <p style="opacity: 0.8; margin-bottom: 0.5rem; font-size: 0.95rem;">문의: partner@seeso.kr</p>
-                <p style="opacity: 0.8; margin-bottom: 0.5rem; font-size: 0.95rem;">📅 2025년 11월 29일 (토) | 📍 경기도의회 대회의실</p>
+                <p style="opacity: 0.8; margin-bottom: 0.5rem; font-size: 0.95rem;">📅 2025년 12월 13일 (토) | 📍 경기도의회 대회의실</p>
                 <div class="footer-links" style="margin-top: 1.5rem;">
                     <a href="#" onclick="openModal('terms'); return false;">이용약관</a> |
                     <a href="#" onclick="openModal('privacy'); return false;">개인정보처리방침</a>
                 </div>
                 <p style="opacity: 0.5; font-size: 0.85rem; margin-top: 1.5rem;">
-                    운영: 시소(Second Team) | 주최: 경기도의회
+                    운영: 시소(Second Team) | 주최: 경기도
                 </p>
             </div>
         </div>
@@ -2987,6 +3106,46 @@
         function toggleMobileMenu() {
             document.getElementById('navMenu').classList.toggle('active');
         }
+
+        // Scroll Direction Detection for Mobile Nav
+        let lastScrollY = 0;
+        let ticking = false;
+
+        function updateNavVisibility() {
+            const navBottom = document.querySelector('.nav-bottom');
+            const currentScrollY = window.scrollY;
+
+            if (window.innerWidth <= 768 && navBottom) {
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    // Scrolling down & past 100px
+                    navBottom.classList.add('hidden');
+                } else {
+                    // Scrolling up or at top
+                    navBottom.classList.remove('hidden');
+                }
+            } else if (navBottom) {
+                // Desktop: always show
+                navBottom.classList.remove('hidden');
+            }
+
+            lastScrollY = currentScrollY;
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateNavVisibility);
+                ticking = true;
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            const navBottom = document.querySelector('.nav-bottom');
+            if (window.innerWidth > 768 && navBottom) {
+                navBottom.classList.remove('hidden');
+            }
+        });
 
         // Custom Select Dropdown
         document.addEventListener('DOMContentLoaded', function() {

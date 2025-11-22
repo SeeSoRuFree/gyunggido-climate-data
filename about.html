@@ -3,7 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - 이 사이트는 바이브코딩으로 만들어졌습니다</title>
+    <title>About - 경기도 AI 바이브코딩 해커톤</title>
+    <meta name="description" content="경기도 AI 바이브코딩 해커톤 소개 페이지. Claude Code를 활용한 바이브코딩 개발 프로젝트와 Second Team 운영사 정보.">
+    <meta name="keywords" content="바이브코딩, Claude Code, AI 개발, Second Team, 시소, 해커톤 운영">
+    <meta name="author" content="Second Team">
+    <link rel="canonical" href="https://climate-gg.second-team.com/about.html">
+
+    <!-- 파비콘 -->
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://climate-gg.second-team.com/about.html">
+    <meta property="og:title" content="About - 경기도 AI 바이브코딩 해커톤">
+    <meta property="og:description" content="이 사이트는 AI와 함께 만들어졌습니다. Claude Code를 활용한 바이브코딩 개발.">
+    <meta property="og:image" content="https://climate-gg.second-team.com/img/clmstllt_keyTitle2.png">
+    <meta property="og:locale" content="ko_KR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://climate-gg.second-team.com/about.html">
+    <meta name="twitter:title" content="About - 경기도 AI 바이브코딩 해커톤">
+    <meta name="twitter:description" content="이 사이트는 AI와 함께 만들어졌습니다. Claude Code를 활용한 바이브코딩 개발.">
+    <meta name="twitter:image" content="https://climate-gg.second-team.com/img/clmstllt_keyTitle2.png">
+
+    <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -73,26 +100,6 @@
             color: var(--neon-green);
         }
 
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(109, 181, 68, 0.1);
-            border: 1px solid rgba(109, 181, 68, 0.3);
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            color: var(--neon-green);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin-bottom: 3rem;
-        }
-
-        .back-button:hover {
-            background: rgba(109, 181, 68, 0.2);
-            transform: translateX(-5px);
-        }
-
         .header {
             text-align: center;
             margin-bottom: 4rem;
@@ -101,18 +108,19 @@
 
         .header h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 900;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-cyan) 50%, var(--neon-yellow) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            line-height: 1.3;
+            color: #ffffff;
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
 
         .header p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 1rem;
         }
 
         .content-section {
@@ -125,90 +133,123 @@
 
         .content-section h2 {
             font-family: 'Outfit', sans-serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--neon-green);
             margin-bottom: 1.5rem;
         }
 
         .content-section h3 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--neon-cyan);
             margin-top: 2rem;
             margin-bottom: 1rem;
         }
 
         .content-section p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.8;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
 
         .feature-list {
             list-style: none;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
         }
 
         .feature-list li {
             display: flex;
             align-items: flex-start;
             gap: 1rem;
-            padding: 1rem;
+            padding: 1.2rem;
             background: rgba(109, 181, 68, 0.05);
             border-left: 3px solid var(--neon-green);
             border-radius: 8px;
             margin-bottom: 1rem;
-            font-size: 1.05rem;
+            font-size: 1rem;
         }
 
         .feature-list li::before {
-            content: '✅';
+            content: '•';
             font-size: 1.5rem;
             flex-shrink: 0;
+            color: var(--neon-green);
         }
 
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .tech-badge {
-            background: rgba(18, 151, 163, 0.1);
-            border: 1px solid rgba(18, 151, 163, 0.3);
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            color: var(--neon-cyan);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(109, 181, 68, 0.1), rgba(18, 151, 163, 0.1));
-            border: 1px solid var(--neon-green);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .highlight-box .big-text {
-            font-family: 'Outfit', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--neon-yellow);
-            margin-bottom: 0.5rem;
-        }
-
-        .highlight-box .small-text {
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, var(--neon-green), var(--primary-green));
+            color: #000;
+            padding: 1.2rem 3rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
             font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 40px rgba(109, 181, 68, 0.5);
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 60px rgba(109, 181, 68, 0.7);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            opacity: 0.6;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .feature-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-screenshot {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(109, 181, 68, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-screenshot:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(109, 181, 68, 0.3);
+        }
+
+        .feature-screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .feature-screenshot figcaption {
+            padding: 0.75rem;
+            background: rgba(109, 181, 68, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--primary-green);
+            font-weight: 500;
         }
 
         @media (max-width: 768px) {
+            .feature-gallery {
+                grid-template-columns: 1fr;
+            }
             nav {
-                padding: 1rem 2rem;
+                padding: 1rem 1.5rem;
             }
 
             .container {
@@ -220,7 +261,16 @@
             }
 
             .header h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+
+            .header h1 br {
+                display: none;
+            }
+
+            .cta-button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
             }
         }
     </style>
@@ -234,238 +284,83 @@
 
     <div class="container">
         <div class="header">
-            <h1>이 사이트는 바이브코딩으로<br>만들어졌습니다</h1>
-            <p>AI와 함께하는 개발, 일주일의 여정</p>
+            <h1>이 사이트는 AI와 함께 만들어졌습니다</h1>
+            <p>Claude Code를 활용한 바이브코딩 개발</p>
         </div>
 
         <div class="content-section">
-            <h2>🚀 프로젝트 개요</h2>
+            <h2>프로젝트 소개</h2>
             <p>
-                이 해커톤 웹사이트는 <strong>바이브코딩(Vibe Coding)</strong> 방식으로 개발되었습니다.
-                Claude Code를 활용하여 기획부터 배포까지 단 일주일 만에 완성했습니다.
+                이 해커톤 웹사이트는 바이브코딩 방식으로 개발되었습니다.
+                Claude Code를 활용하여 기획부터 배포까지 빠르게 완성했습니다.
             </p>
-
-            <div class="highlight-box">
-                <div class="big-text">7일</div>
-                <div class="small-text">기획부터 배포까지 소요된 시간</div>
-            </div>
-
             <p>
-                바이브코딩이란 AI와 자연스럽게 대화하며 코드를 작성하는 새로운 개발 방식입니다.
-                복잡한 문법을 외우지 않아도, AI가 여러분의 의도를 이해하고 실행 가능한 코드로 만들어줍니다.
+                바이브코딩이란 AI와 자연스럽게 대화하며 코드를 작성하는 개발 방식입니다.
+                복잡한 문법을 외우지 않아도, AI가 의도를 이해하고 실행 가능한 코드로 만들어줍니다.
             </p>
         </div>
 
         <div class="content-section">
-            <h2>✨ 구현된 기능</h2>
+            <h2>주요 기능</h2>
             <ul class="feature-list">
                 <li>
                     <div>
-                        <strong>해커톤 홍보 웹사이트</strong><br>
-                        반응형 디자인, 섹션별 콘텐츠, 다크 모드 UI
+                        <strong>반응형 웹사이트</strong> - PC와 모바일 최적화된 다크 테마 디자인
                     </div>
                 </li>
                 <li>
                     <div>
-                        <strong>Google Sheets 연동 참가 신청 폼</strong><br>
-                        실시간 데이터 저장, 트랙별 필터링, 참가자 환경 정보 수집
+                        <strong>참가 신청 시스템</strong> - Google Sheets 연동 실시간 데이터 저장 및 자동 이메일 발송
                     </div>
                 </li>
                 <li>
                     <div>
-                        <strong>자동 이메일 발송 시스템</strong><br>
-                        신청 완료 확인 메일, 참가자 정보 요약, QR 코드 자동 생성 및 첨부
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <strong>QR 출석 체크 시스템</strong><br>
-                        실시간 카메라 스캔, 중복 체크 방지, 출석 현황 자동 업데이트
+                        <strong>QR 출석 체크</strong> - 카메라 기반 실시간 QR 스캔 및 출석 관리
                     </div>
                 </li>
             </ul>
-        </div>
 
-        <div class="content-section">
-            <h2>🛠️ 기술 스택</h2>
-            <div class="tech-stack">
-                <span class="tech-badge">HTML5 / CSS3</span>
-                <span class="tech-badge">JavaScript (ES6+)</span>
-                <span class="tech-badge">Google Apps Script</span>
-                <span class="tech-badge">Google Sheets API</span>
-                <span class="tech-badge">MailApp</span>
-                <span class="tech-badge">html5-qrcode</span>
-                <span class="tech-badge">QRServer API</span>
-                <span class="tech-badge">Vercel</span>
-            </div>
-
-            <h3>📦 주요 통합 서비스</h3>
-            <ul class="feature-list">
-                <li>
-                    <div>
-                        <strong>Google Sheets</strong> - 실시간 데이터베이스 및 참가자 관리
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <strong>Google Apps Script</strong> - 서버리스 백엔드 API
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <strong>Vercel</strong> - 자동 배포 및 HTTPS 호스팅
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-        <div class="content-section">
-            <h2>💡 개발 플로우</h2>
-
-            <h3>1단계: 기획 및 디자인 (1일)</h3>
-            <p>
-                해커톤 웹사이트의 구조와 디자인을 Claude Code와 함께 설계했습니다.
-                기후 데이터 시각화와 참가자 경험을 중심으로 섹션을 구성했습니다.
-            </p>
-
-            <h3>2단계: 프론트엔드 개발 (2일)</h3>
-            <p>
-                반응형 웹사이트를 HTML/CSS/JavaScript로 구현했습니다.
-                다크 모드 UI, 애니메이션 효과, 모바일 최적화까지 완성했습니다.
-            </p>
-
-            <h3>3단계: 백엔드 통합 (2일)</h3>
-            <p>
-                Google Sheets와 Apps Script를 연동하여 서버리스 백엔드를 구축했습니다.
-                참가 신청 폼 데이터 저장, 이메일 자동 발송, QR 코드 생성 기능을 구현했습니다.
-            </p>
-
-            <h3>4단계: QR 출석 시스템 (1일)</h3>
-            <p>
-                html5-qrcode 라이브러리를 활용하여 카메라 기반 QR 스캐너를 구현했습니다.
-                실시간 출석 체크와 중복 방지 로직을 추가했습니다.
-            </p>
-
-            <h3>5단계: 테스트 및 배포 (1일)</h3>
-            <p>
-                전체 플로우를 테스트하고 버그를 수정했습니다.
-                Vercel을 통해 프로덕션 환경에 배포하고 도메인을 연결했습니다.
-            </p>
-        </div>
-
-        <div class="content-section">
-            <h2>🎯 바이브코딩의 장점</h2>
-            <ul class="feature-list">
-                <li>
-                    <div>
-                        <strong>빠른 프로토타이핑</strong> - 아이디어를 즉시 실행 가능한 코드로 전환
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <strong>낮은 진입 장벽</strong> - 초보자도 AI의 도움으로 복잡한 기능 구현 가능
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <strong>반복적 개선</strong> - 자연어로 수정 요청하며 점진적으로 완성도 향상
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <strong>학습 효과</strong> - AI가 생성한 코드를 분석하며 실전 스킬 습득
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-        <div class="content-section">
-            <h2>🌟 여러분도 할 수 있습니다!</h2>
-            <p>
-                이 웹사이트를 만드는 과정에서 특별한 전문 지식이 필요하지 않았습니다.
-                Claude Code와 대화하며 하나씩 기능을 추가해 나갔고, 막히는 부분은 AI가 해결책을 제시했습니다.
-            </p>
-            <p>
-                <strong>바이브코딩 해커톤</strong>에 참가하시면 여러분도 같은 경험을 할 수 있습니다.
-                AI와 협업하여 실제로 작동하는 프로토타입을 만들고, 경기도 기후 문제에 임팩트를 만들어보세요!
-            </p>
-
-            <div class="highlight-box">
-                <div class="small-text">지금 바로 참가 신청하세요 👇</div>
-            </div>
-
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="index.html#register" style="
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 0.8rem;
-                    background: linear-gradient(135deg, var(--neon-green), var(--primary-green));
-                    color: #000;
-                    padding: 1.2rem 3rem;
-                    border-radius: 12px;
-                    text-decoration: none;
-                    font-weight: 700;
-                    font-size: 1.1rem;
-                    box-shadow: 0 0 40px rgba(109, 181, 68, 0.5);
-                    transition: all 0.3s;
-                ">
-                    해커톤 신청하러 가기 →
-                </a>
+            <div class="feature-gallery">
+                <figure class="feature-screenshot">
+                    <img src="img/screenshot-email.png" alt="이메일 발송 시스템">
+                    <figcaption>자동 이메일 발송</figcaption>
+                </figure>
+                <figure class="feature-screenshot">
+                    <img src="img/screenshot-qr.png" alt="QR 코드 시스템">
+                    <figcaption>QR 입장권 생성</figcaption>
+                </figure>
+                <figure class="feature-screenshot">
+                    <img src="img/screenshot-checkin.png" alt="체크인 시스템">
+                    <figcaption>실시간 출석 체크</figcaption>
+                </figure>
             </div>
         </div>
 
         <div class="content-section">
-            <h2>🏢 운영사 소개 - Second Team (시소)</h2>
+            <h2>운영사 소개 - Second Team</h2>
             <p>
                 이번 해커톤은 <strong>바이브코딩 전문 기업 시소(Second Team)</strong>가 운영합니다.
-                시소는 AI 기반 바이브코딩 교육, 해커톤 기획/운영, 빠른 프로토타입 개발 전문 기업입니다.
+                AI 기반 바이브코딩 교육, 해커톤 운영, 프로토타입 개발 전문 기업입니다.
             </p>
 
-            <h3>✨ 주요 서비스</h3>
+            <h3>주요 서비스</h3>
             <ul class="feature-list">
                 <li>
                     <div>
-                        <strong>바이브코딩 교육</strong><br>
-                        기업 맞춤형 AI 협업 개발 교육, 1~2시간 속성 교육부터 전문가 과정까지
+                        <strong>바이브코딩 교육</strong> - 기업 맞춤형 AI 협업 개발 교육
                     </div>
                 </li>
                 <li>
                     <div>
-                        <strong>해커톤 & 워크샵</strong><br>
-                        사내 해커톤 기획/운영, AI 바이브코딩 체험 워크샵, 팀 빌딩 이벤트
+                        <strong>해커톤 & 워크샵</strong> - 사내 해커톤 기획 및 운영, 팀 빌딩 이벤트
                     </div>
                 </li>
                 <li>
                     <div>
-                        <strong>AI 기반 외주 개발</strong><br>
-                        빠른 프로토타입 제작, MVP 개발, 웹/앱 서비스 구축
+                        <strong>AI 기반 개발</strong> - 빠른 프로토타입 제작, MVP 개발
                     </div>
                 </li>
             </ul>
-
-            <div class="highlight-box">
-                <div class="small-text" style="font-size: 1.2rem; margin-bottom: 1rem;">
-                    바이브코딩이 궁금하신가요?
-                </div>
-                <div style="text-align: center;">
-                    <a href="https://second-team.com/" target="_blank" style="
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 0.8rem;
-                        background: linear-gradient(135deg, var(--neon-cyan), var(--primary-cyan));
-                        color: #000;
-                        padding: 1rem 2.5rem;
-                        border-radius: 12px;
-                        text-decoration: none;
-                        font-weight: 700;
-                        font-size: 1.1rem;
-                        box-shadow: 0 0 40px rgba(18, 151, 163, 0.5);
-                        transition: all 0.3s;
-                    ">
-                        Second Team 알아보기 →
-                    </a>
-                </div>
-            </div>
 
             <p style="margin-top: 2rem; opacity: 0.8; font-size: 0.95rem;">
                 📧 문의: partner@seeso.kr<br>
@@ -473,10 +368,15 @@
             </p>
         </div>
 
-        <div style="text-align: center; margin-top: 3rem; padding: 2rem; opacity: 0.6;">
-            <p style="font-size: 0.9rem;">
-                Made with ❤️ using Claude Code<br>
-                운영: Second Team (시소) | 주최: 경기도의회<br>
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="index.html#register" class="cta-button">
+                해커톤 신청하러 가기 →
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>
+                운영: Second Team (시소) | 주최: 경기도<br>
                 © 2025 경기도 AI 바이브코딩 해커톤
             </p>
         </div>

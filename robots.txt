@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://climate-gg.second-team.com/sitemap.xml
