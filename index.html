@@ -3287,7 +3287,7 @@
                 }
 
                 titleEl.textContent = title;
-                messageEl.textContent = message;
+                messageEl.innerHTML = message;
 
                 modal.style.display = 'flex';
                 // Force reflow to trigger animation
@@ -3350,7 +3350,7 @@
 
                 // Show success modal
                 setTimeout(() => {
-                    showResult('success', '신청이 완료되었습니다!', '접수 확인 이메일이 발송되었습니다.\n입장 QR코드는 이메일로 제공됩니다.');
+                    showResult('success', '신청이 완료되었습니다!', '접수 확인 이메일이 발송되었습니다.<br>입장 QR코드는 이메일로 제공됩니다.');
                 }, 300);
 
                 // Reset form
