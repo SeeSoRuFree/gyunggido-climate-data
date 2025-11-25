@@ -89,8 +89,8 @@ function doPost(e) {
           <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; margin: 20px 0;">
             <h3 style="margin-top: 0;">📅 행사 정보</h3>
             <ul style="line-height: 1.8;">
-              <li><strong>일시:</strong> 2025년 11월 29일 (토) 09:00-16:00</li>
-              <li><strong>장소:</strong> 경기도의회 대회의실</li>
+              <li><strong>일시:</strong> 2025년 12월 13일 (토) 09:00-16:00</li>
+              <li><strong>장소:</strong> 경기도의회 중회의실 1·2</li>
               <li><strong>준비물:</strong> 개인 노트북</li>
             </ul>
           </div>
