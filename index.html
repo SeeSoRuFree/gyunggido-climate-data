@@ -171,8 +171,7 @@
         }
 
         nav .logo {
-            height: 36px;
-            filter: brightness(0) invert(1);
+            height: 45px;
         }
 
         nav ul {
@@ -506,6 +505,10 @@
         }
 
         .data-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
             position: relative;
             border-radius: 24px;
             overflow: hidden;
@@ -1444,7 +1447,7 @@
             }
 
             .logo-link .logo {
-                height: 28px;
+                height: 35px;
             }
 
             .mobile-register-top {
@@ -1937,7 +1940,7 @@
     <!-- Navigation -->
     <nav>
         <a href="#" class="logo-link">
-            <img src="img/bi.svg" alt="경기기후플랫폼" class="logo">
+            <img src="img/gg-bi-logo.png" alt="경기도" class="logo">
         </a>
         <div class="mobile-register-top">
             <a href="#register" class="register-btn">신청하기</a>
@@ -1957,11 +1960,10 @@
                 🚀 경기기후위성 발사 기념!
             </div>
             <h1>
-                <span class="hero-title-line1">경기기후플랫폼 데이터를 활용한</span>
-                <span class="hero-title-line2">바이브코딩 해커톤</span>
+                경기 기후 바이브코딩 해커톤
             </h1>
             <p class="hero-subtitle">
-                경기기후플랫폼의 실제 데이터를 바탕으로<br>
+                경기도 기후데이터를 바탕으로<br>
                 아이디어 → AI 코드 생성 → 작동하는 서비스까지<br>
                 단 하루 만에 완성해보는 실전형 AI 해커톤
             </p>
@@ -2065,45 +2067,37 @@
         </div>
 
         <div class="data-showcase-grid">
-            <div class="data-card">
-                <video autoplay muted loop playsinline>
-                    <source src="https://climate.gg.go.kr/static/images/video/main-4.mp4" type="video/mp4">
-                </video>
+            <a href="https://climate.gg.go.kr/gcs/cmm/selectMainMap.do?lang=kor#climate_heat" target="_blank" class="data-card">
+                <img src="img/기후위기대응데이터.png" alt="기후위기 대응 데이터" style="width: 100%; height: 100%; object-fit: cover;">
                 <div class="data-overlay">
                     <div class="data-title">🌊 기후위기 대응 데이터</div>
                     <div class="data-desc">극한호우 위험도 평가, 산사태 예측, 폭염 체감온도, 침수흔적지도, 대피시설 위치 데이터</div>
                 </div>
-            </div>
+            </a>
 
-            <div class="data-card">
-                <video autoplay muted loop playsinline>
-                    <source src="https://climate.gg.go.kr/static/images/video/main-2.mp4" type="video/mp4">
-                </video>
+            <a href="https://climate.gg.go.kr/ces/mapService/main" target="_blank" class="data-card">
+                <img src="img/도시생태현황데이터.png" alt="도시생태현황 데이터" style="width: 100%; height: 100%; object-fit: cover;">
                 <div class="data-overlay">
                     <div class="data-title">🌳 도시생태현황 데이터</div>
                     <div class="data-desc">비오톱 유형도, 현존식생지도, 생태축, 습지 위치, 그린인프라 현황 데이터</div>
                 </div>
-            </div>
+            </a>
 
-            <div class="data-card">
-                <video autoplay muted loop playsinline>
-                    <source src="https://climate.gg.go.kr/static/images/video/main-1.mp4" type="video/mp4">
-                </video>
+            <a href="https://climate.gg.go.kr/gcs/cmm/selectMainMap.do?lang=kor#carbon_abs" target="_blank" class="data-card">
+                <img src="img/탄소공간정보데이터.png" alt="탄소공간 정보 데이터" style="width: 100%; height: 100%; object-fit: cover;">
                 <div class="data-overlay">
                     <div class="data-title">🔋 탄소공간 정보 데이터</div>
                     <div class="data-desc">건축물 탄소배출량, 수목/토양 탄소저장량, 탄소흡수지도, 산림층위구조 데이터</div>
                 </div>
-            </div>
+            </a>
 
-            <div class="data-card">
-                <video autoplay muted loop playsinline>
-                    <source src="https://climate.gg.go.kr/static/images/video/main-3.mp4" type="video/mp4">
-                </video>
+            <a href="https://climate.gg.go.kr/gcs/cmm/selectMainMap.do?lang=kor#regen_poten" target="_blank" class="data-card">
+                <img src="img/태양광잠재량데이터.png" alt="태양광 잠재량 데이터" style="width: 100%; height: 100%; object-fit: cover;">
                 <div class="data-overlay">
                     <div class="data-title">☀️ 태양광 잠재량 데이터</div>
                     <div class="data-desc">이론적/기술적/시장 잠재량, 규제지역, 태양광 발전 현황 및 설치 예정지 데이터</div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- Data Categories Detail -->
