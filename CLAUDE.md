@@ -1,0 +1,216 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is a static website for the "경기도 AI 바이브코딩 해커톤 2025" (Gyeonggi-do AI Vibe Coding Hackathon 2025). The site handles event registration, QR-based attendance tracking, and promotional poster generation. The entire project was built using vibe coding methodology with Claude Code.
+
+## Architecture
+
+### Core Pages
+
+- **index.html** - Main landing page with event information and registration form (~3,300 lines)
+  - Contains registration form that submits to Google Apps Script
+  - Features dark theme design with gradient animations
+  - Registration form at line ~3242 with `GOOGLE_SCRIPT_URL` configuration
+  - Team size selection (1-person or 2-person team)
+  - PC requirements notice (Mac recommended)
+  - Responsive design with mobile/tablet optimizations
+
+- **attendance.html** - QR code scanner for event check-in (~350 lines)
+  - Uses `html5-qrcode` library for camera-based QR scanning
+  - Token-protected access (line 210: `VALID_TOKEN`)
+  - Connects to same Google Apps Script URL (line 209: `SCRIPT_URL`)
+  - Real-time check-in status display and recent attendee list
+
+- **about.html** - Project information and organizer details (~385 lines)
+  - Explains vibe coding methodology used to build the site
+  - Information about Second Team (operator) and services
+
+- **poster-generator.html** - Dynamic poster generation tool (~610 lines)
+  - Canvas-based poster rendering with multiple templates
+  - Supports Instagram (square/story), Facebook banner, and A4 formats
+  - Two style options: "Premium Modern" and "Tech Holographic"
+  - Exports to PNG (transparent) or JPG (high quality)
+
+### Version History
+
+Multiple index versions exist (index-v1.html through index-v4.html) showing design evolution. Current production version is index.html.
+
+## Google Apps Script Integration
+
+The site integrates with Google Apps Script for backend functionality. See GOOGLE_SHEETS_SETUP.md for complete setup documentation.
+
+### Key Integration Points
+
+1. **Registration Form** (index.html:3242)
+   ```javascript
+   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/.../exec';
+   ```
+   - POST request sends registration data
+   - Response triggers success modal
+   - Automatic email with QR code sent to registrant
+
+2. **Attendance System** (attendance.html:209)
+   ```javascript
+   const SCRIPT_URL = 'https://script.google.com/macros/s/.../exec';
+   ```
+   - GET request with `action=checkIn&id={uniqueId}` for check-ins
+   - GET request with `action=getRecent` for recent attendee list
+   - Token-based access control via URL parameter
+
+### Data Schema
+
+Google Sheets columns (A-N):
+- A: Submission timestamp
+- B: Name
+- C: Email
+- D: Phone
+- E: Affiliation
+- F: Track (일반 트랙 / 개발 트랙)
+- G: Motivation
+- H: Operating System (Windows/Mac)
+- I: Claude Code installed (yes/no)
+- J: Claude Code account connected (yes/no)
+- K: Unique ID (format: HK2025-{timestamp}-{emailHash})
+- L: Attendance status ('O' when checked in)
+- M: Check-in time
+- N: Team Size (1인 / 2인)
+
+## Development Commands
+
+### Local Development
+```bash
+# Open in browser (no build step required - static HTML)
+open index.html
+# or
+python -m http.server 8000  # for local server
+```
+
+### Deployment (Vercel)
+```bash
+# Deploy to Vercel
+vercel --prod
+
+# The project is configured with vercel.json for routing
+# Deployment is automatic on git push (if Vercel GitHub integration is set up)
+```
+
+### Testing Forms
+1. Open index.html in browser
+2. Fill out registration form with test data
+3. Check Google Sheets for new row
+4. Check email inbox for confirmation with QR code
+5. Open attendance.html with token parameter to test QR scanning
+
+## Configuration Files
+
+- **vercel.json** - Vercel deployment configuration with basic routing
+- **.vercelignore** - Files to exclude from deployment
+- **robots.txt** - SEO configuration
+- **sitemap.xml** - Site structure for search engines
+- **.gitignore** - Excludes .DS_Store, .vercel, IDE files
+
+## Design System
+
+### Color Palette
+```css
+--primary-navy: #2A316A
+--primary-green: #6DB544
+--primary-cyan: #1297A3
+--accent-yellow: #FFD96E
+--dark-bg: #0a0e1a
+--dark-surface: #111827
+--dark-card: #1a1f35
+```
+
+### Typography
+- Primary font: 'Outfit' (headings, display text)
+- Secondary font: 'Inter' (body text, UI elements)
+- Loaded via Google Fonts
+
+### Responsive Breakpoints
+- Mobile: max-width 768px
+- Tablet: 769px - 1023px
+- Desktop: 1024px and above
+
+## Important Notes
+
+### Security
+- Attendance page requires token parameter: `?token=HACKATHON2025SECRET`
+- Token value defined in attendance.html:210 (`VALID_TOKEN`)
+- Google Apps Script URLs are public but POST-only for registration
+
+### QR Code Format
+- Unique IDs follow pattern: `HK2025-{timestamp}-{emailHash}`
+- Generated by Google Apps Script using MD5 hash of email
+- QR codes created via Google Charts API: `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl={uniqueId}`
+
+### Form Validation
+- Registration form validates all required fields client-side
+- Phone number formatting enforced
+- Email format validation
+- Track selection required (general or development)
+- Team size selection required (1-person or 2-person team)
+
+### Browser Compatibility
+- QR scanner requires camera access (HTTPS only)
+- Modern browsers with Canvas API support for poster generator
+- Tested on Chrome, Safari, Firefox
+
+## Modifying Configuration
+
+### Changing Google Apps Script URL
+1. Update `GOOGLE_SCRIPT_URL` in index.html (line ~3242)
+2. Update `SCRIPT_URL` in attendance.html (line 209)
+3. Follow setup instructions in GOOGLE_SHEETS_SETUP.md
+
+### Changing Attendance Token
+1. Update `VALID_TOKEN` in attendance.html (line 210)
+2. Share new URL with token to organizers: `https://[domain]/attendance.html?token=NEW_TOKEN`
+
+### Customizing Email Content
+- Email template is in Google Apps Script code
+- See GOOGLE_SHEETS_SETUP.md lines 68-123 for HTML email template
+
+## Assets
+
+- **img/** - Contains logos, favicons, and UI assets
+  - favicon.ico, favicon-32x32.png, favicon-16x16.png
+  - apple-touch-icon.png
+  - bi.svg (경기기후플랫폼 logo)
+  - Various screenshots for about page
+
+- **reference_screenshot/** - Design reference images (not used in production)
+
+## External Dependencies
+
+- Google Fonts (Inter, Outfit)
+- html5-qrcode library (v2.3.8) - QR scanning
+- Google Charts API - QR code generation
+- Google Apps Script - Backend API
+
+## Team Registration
+
+The hackathon supports both individual and team participation:
+- **1-person:** Individual participant
+- **2-person team:** Two people working together
+  - Both team members attend the event
+  - Only **one PC required** per team (team leader's laptop)
+  - Team members collaborate on the same computer
+
+### PC Requirements
+- Participants must bring their own laptop
+- **Mac is recommended** (Claude Code works more stably on Mac)
+- Windows is also supported
+- For 2-person teams: only the team leader needs to bring a laptop
+
+## Event Details
+
+- **Date:** 2025-12-13 (Saturday)
+- **Time:** 09:00-16:00
+- **Location:** 경기도의회 중회의실 1·2 (Gyeonggi Provincial Council Meeting Room 1·2, B1F)
+- **Organizer:** 경기도 (Gyeonggi Province)
+- **Operator:** Second Team (시소)
+- **Contact:** partner@seeso.kr

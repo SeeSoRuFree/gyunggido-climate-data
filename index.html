@@ -1875,14 +1875,6 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .result-icon.success::before {
-            content: '✅';
-        }
-
-        .result-icon.error::before {
-            content: '❌';
-        }
-
         .result-content h3 {
             font-size: 1.8rem;
             margin-bottom: 1rem;
@@ -2474,6 +2466,14 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Team Award Notice -->
+            <div style="margin-top: 2rem; padding: 1.2rem 1.5rem; background: rgba(18, 151, 163, 0.1); border: 1px solid rgba(18, 151, 163, 0.3); border-radius: 12px; text-align: center;">
+                <div style="font-size: 0.95rem; color: rgba(255, 255, 255, 0.85); line-height: 1.7;">
+                    <strong style="color: var(--neon-cyan);">📌 2인 팀 수상 안내</strong><br>
+                    2인 팀으로 수상하는 경우, 상금 및 상장은 <strong>대표자 1명에게만</strong> 지급됩니다.
+                </div>
+            </div>
         </div>
 
         <div style="text-align: center; margin-top: 4rem;">
@@ -2758,6 +2758,40 @@
                     </div>
                 </div>
             </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>👥 2인 팀으로 참가할 수 있나요?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        네, <strong>2인 팀 참가가 가능</strong>합니다!<br><br>
+                        <strong>신청 방법:</strong><br>
+                        • 신청 폼의 <strong>이름 필드에 두 분의 이름을 함께 입력</strong>하세요 (예: 홍길동, 김철수)<br>
+                        • 이메일, 연락처 등 나머지 정보는 <strong>대표자 1인의 정보만</strong> 입력하세요<br><br>
+                        <strong>현장 참석:</strong> 두 분 모두 현장에 참석하시되, <strong>PC는 1대만</strong> 가지고 오시면 됩니다. 한 대의 PC로 함께 협업하며 개발을 진행합니다.<br><br>
+                        <strong>📌 참고사항:</strong> 2인 팀으로 수상 시, 상금 및 상장은 <strong>대표자 1명에게만</strong> 수여됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>💻 PC(노트북)를 지급받나요?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <strong>아니요, PC는 별도로 지급되지 않습니다.</strong><br><br>
+                        참가자는 <strong>개인 노트북을 반드시 지참</strong>해야 합니다.<br><br>
+                        <strong>권장 사양:</strong><br>
+                        • Windows/Mac 모두 가능하나, <strong>Mac 사용을 권장</strong>합니다<br>
+                        • Claude Code는 Mac 환경에서 더욱 안정적으로 동작합니다<br>
+                        • 2인 팀의 경우 1대의 PC만 필요합니다
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -2780,6 +2814,9 @@
                 <div class="form-group">
                     <label for="name">이름 *</label>
                     <input type="text" id="name" name="name" required placeholder="홍길동">
+                    <div style="margin-top: 0.5rem; padding: 0.6rem 0.8rem; background: rgba(18, 151, 163, 0.08); border-left: 3px solid rgba(18, 151, 163, 0.5); border-radius: 6px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); line-height: 1.5;">
+                        💡 <strong>2인 팀으로 참가</strong>하는 경우, '<strong>홍길동, 김철수</strong>' 형식으로 두 분의 이름을 함께 작성하고, <strong>이메일·연락처 등 정보는 대표자 1인 정보로만</strong> 작성해주세요
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -2833,6 +2870,10 @@
                         <option value="Windows">Windows</option>
                         <option value="Mac">Mac</option>
                     </select>
+                    <div style="margin-top: 0.7rem; padding: 0.8rem 1rem; background: rgba(109, 181, 68, 0.08); border-left: 3px solid rgba(109, 181, 68, 0.5); border-radius: 6px; font-size: 0.9rem; color: rgba(255, 255, 255, 0.8); line-height: 1.6;">
+                        💻 본인이 <strong>현장에 가지고 올 PC 1대</strong>를 기준으로 선택하세요.<br>
+                        Windows/Mac 모두 가능하나, <strong>Mac 사용을 권장</strong>합니다.
+                    </div>
                 </div>
 
                 <div class="form-group">

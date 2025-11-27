@@ -9,9 +9,9 @@
 3. 이름: "경기도 AI 해커톤 신청자 명단"
 4. 첫 번째 행에 다음 헤더 입력:
 
-| A | B | C | D | E | F | G | H | I | J | K | L | M |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 제출시간 | 이름 | 이메일 | 연락처 | 소속 | 트랙 | 지원동기 | 운영체제 | Claude설치 | Claude연동 | 고유ID | 출석여부 | 출석시간 |
+| A | B | C | D | E | F | G | H | I | J | K | L | M | N |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 제출시간 | 이름 | 이메일 | 연락처 | 소속 | 트랙 | 지원동기 | 운영체제 | Claude설치 | Claude연동 | 고유ID | 출석여부 | 출석시간 | 팀구성 |
 
 **참가자 환경 정보:**
 - **운영체제 (H열):** Windows 또는 Mac
@@ -22,6 +22,9 @@
 - **고유ID (K열):** QR 코드에 인코딩된 참가자 고유 식별자
 - **출석여부 (L열):** 체크인 완료 시 'O' 표시
 - **출석시간 (M열):** 체크인한 시간 자동 기록
+
+**팀 구성 정보:**
+- **팀구성 (N열):** 1인 또는 2인
 
 ## 2단계: Google Apps Script 생성
 
@@ -46,19 +49,20 @@ function doPost(e) {
 
     // 데이터 저장 (고유ID 포함)
     sheet.appendRow([
-      data.timestamp || new Date().toISOString(),
-      data.name || '',
-      data.email || '',
-      data.phone || '',
-      data.affiliation || '',
-      trackName,
-      data.motivation || '',
-      data.os || '',              // H열: 운영체제
-      data.claudeInstalled || '', // I열: Claude Code 설치 여부
-      data.claudeConnected || '', // J열: Claude Code 계정 연동 여부
-      uniqueId,                   // K열: 고유ID
-      '',                         // L열: 출석여부 (비어있음)
-      ''                          // M열: 출석시간 (비어있음)
+      data.timestamp || new Date().toISOString(),  // A열: 제출시간
+      data.name || '',                             // B열: 이름
+      data.email || '',                            // C열: 이메일
+      data.phone || '',                            // D열: 연락처
+      data.affiliation || '',                      // E열: 소속
+      trackName,                                   // F열: 트랙
+      data.motivation || '',                       // G열: 지원동기
+      data.os || '',                               // H열: 운영체제
+      data.claudeInstalled || '',                  // I열: Claude Code 설치 여부
+      data.claudeConnected || '',                  // J열: Claude Code 계정 연동 여부
+      uniqueId,                                    // K열: 고유ID
+      '',                                          // L열: 출석여부 (비어있음)
+      '',                                          // M열: 출석시간 (비어있음)
+      data.teamSize ? `${data.teamSize}인` : '1인' // N열: 팀구성
     ]);
 
     // QR 코드 URL 생성 (Google Charts API)
@@ -80,6 +84,7 @@ function doPost(e) {
               <li><strong>연락처:</strong> ${data.phone}</li>
               <li><strong>소속:</strong> ${data.affiliation}</li>
               <li><strong>선택 트랙:</strong> ${trackName}</li>
+              <li><strong>팀 구성:</strong> ${data.teamSize ? `${data.teamSize}인` : '1인'}</li>
               <li><strong>운영체제:</strong> ${data.os}</li>
               <li><strong>Claude Code 설치:</strong> ${data.claudeInstalled}</li>
               <li><strong>Claude Code 계정 연동:</strong> ${data.claudeConnected}</li>
@@ -319,6 +324,8 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby.../exec';
 - 총 신청자: `=COUNTA(B:B)-1`
 - 일반 트랙: `=COUNTIF(F:F,"일반 트랙")`
 - 개발 트랙: `=COUNTIF(F:F,"개발 트랙")`
+- 1인 참가: `=COUNTIF(N:N,"1인")`
+- 2인 팀: `=COUNTIF(N:N,"2인")`
 - Windows 사용자: `=COUNTIF(H:H,"Windows")`
 - Mac 사용자: `=COUNTIF(H:H,"Mac")`
 - Claude 미설치자: `=COUNTIF(I:I,"아니오")`
@@ -384,6 +391,7 @@ Google Sheets에서 실시간으로 확인:
 
 ### 참가자 환경 정보 확인
 
+- **N열 (팀구성):** 1인/2인 통계로 현장 좌석 배치 계획
 - **H열 (운영체제):** Windows/Mac 통계로 현장 세팅 준비
 - **I열 (Claude설치):** 미설치자를 위한 현장 지원 준비
 - **J열 (Claude연동):** 미연동자를 위한 계정 연동 안내 준비
@@ -397,7 +405,7 @@ Google Sheets에서 실시간으로 확인:
 
 **"이미 체크인하셨습니다" 메시지:**
 - 정상 작동입니다 (중복 체크인 방지)
-- Google Sheets의 J열에서 체크인 시간 확인 가능
+- Google Sheets의 M열에서 체크인 시간 확인 가능
 
 **카메라가 작동하지 않을 때:**
 - 브라우저 설정에서 카메라 권한 확인
