@@ -10,10 +10,10 @@ This is a static website for the "경기도 AI 바이브코딩 해커톤 2025" (
 
 ### Core Pages
 
-- **index.html** - Main landing page with event information and registration form (~3,300 lines)
+- **index.html** - Main landing page with event information and registration form (~3,400 lines)
   - Contains registration form that submits to Google Apps Script
   - Features dark theme design with gradient animations
-  - Registration form at line ~3242 with `GOOGLE_SCRIPT_URL` configuration
+  - Registration form at line 3283 with `GOOGLE_SCRIPT_URL` configuration
   - Team size selection (1-person or 2-person team)
   - PC requirements notice (Mac recommended)
   - Responsive design with mobile/tablet optimizations
@@ -44,11 +44,11 @@ The site integrates with Google Apps Script for backend functionality. See GOOGL
 
 ### Key Integration Points
 
-1. **Registration Form** (index.html:3242)
+1. **Registration Form** (index.html:3283)
    ```javascript
    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/.../exec';
    ```
-   - POST request sends registration data
+   - POST request sends registration data (index.html:3360)
    - Response triggers success modal
    - Automatic email with QR code sent to registrant
 
@@ -56,9 +56,9 @@ The site integrates with Google Apps Script for backend functionality. See GOOGL
    ```javascript
    const SCRIPT_URL = 'https://script.google.com/macros/s/.../exec';
    ```
-   - GET request with `action=checkIn&id={uniqueId}` for check-ins
-   - GET request with `action=getRecent` for recent attendee list
-   - Token-based access control via URL parameter
+   - GET request with `action=checkIn&id={uniqueId}` for check-ins (attendance.html:287)
+   - GET request with `action=getRecent` for recent attendee list (attendance.html:313)
+   - Token-based access control via URL parameter (attendance.html:210, 221)
 
 ### Data Schema
 
@@ -162,7 +162,7 @@ vercel --prod
 ## Modifying Configuration
 
 ### Changing Google Apps Script URL
-1. Update `GOOGLE_SCRIPT_URL` in index.html (line ~3242)
+1. Update `GOOGLE_SCRIPT_URL` in index.html (line 3283)
 2. Update `SCRIPT_URL` in attendance.html (line 209)
 3. Follow setup instructions in GOOGLE_SHEETS_SETUP.md
 
