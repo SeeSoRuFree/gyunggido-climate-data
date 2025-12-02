@@ -1970,10 +1970,13 @@
                 단 하루 만에 완성해보는 실전형 AI 해커톤
             </p>
 
-            <div class="hero-cta-group">
+            <div class="hero-cta-group" style="display: flex; flex-direction: column; align-items: center; gap: 0;">
                 <a href="#register" class="cta-button">
                     지금 신청하기 →
                 </a>
+                <p style="margin-top: 0.8rem; margin-bottom: 0; font-size: 0.9rem; opacity: 0.7; color: rgba(255, 255, 255, 0.8); text-align: center;">
+                    신청 마감: 12.10.(수) 23:59
+                </p>
             </div>
 
             <div class="hero-stats">
@@ -2826,6 +2829,9 @@
                 해커톤<br>
                 <span class="gradient-text">참가 신청</span>
             </h2>
+            <p style="margin-top: 1rem; font-size: 1.05rem; font-weight: 600; color: var(--neon-green);">
+                📅 신청 마감: 2025년 12월 10일(수) 23:59
+            </p>
             <p class="section-description">
                 경기기후플랫폼 데이터로 실용적인 솔루션을 만들어보세요.<br>
                 지금 바로 신청하세요.
@@ -3478,6 +3484,47 @@
                 }
             });
         });
+
+        // 신청 마감일 체크 및 자동 처리
+        function checkRegistrationDeadline() {
+            // 한국 시간(KST) 기준 마감일: 2025-12-10 23:59:59
+            const now = new Date();
+            const deadline = new Date('2025-12-10T23:59:59+09:00');
+
+            if (now > deadline) {
+                // 1. 헤더의 "신청하기" 버튼 제거
+                document.querySelectorAll('.register-btn').forEach(btn => {
+                    const parent = btn.parentElement;
+                    if (parent) {
+                        parent.style.display = 'none';
+                    }
+                });
+
+                // 2. 히어로 섹션 CTA 버튼 변경
+                const heroCta = document.querySelector('.hero-cta-group');
+                if (heroCta) {
+                    heroCta.innerHTML = '<p style="font-size: 1.1rem; opacity: 0.8; color: rgba(255, 255, 255, 0.7);">신청 기간이 종료되었습니다</p>';
+                }
+
+                // 3. 신청 폼 숨기고 마감 메시지 표시
+                const formContainer = document.querySelector('.form-container');
+                if (formContainer) {
+                    formContainer.innerHTML = `
+                        <div style="text-align: center; padding: 4rem 2rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(109, 181, 68, 0.2); border-radius: 16px; margin: 2rem auto; max-width: 600px;">
+                            <div style="font-size: 3rem; margin-bottom: 1.5rem;">📅</div>
+                            <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; color: var(--neon-green);">신청 기간이 종료되었습니다</h3>
+                            <p style="font-size: 1rem; opacity: 0.8; line-height: 1.6;">
+                                신청 마감: 2025년 12월 10일(수) 23:59<br>
+                                많은 관심 감사드립니다.
+                            </p>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // 페이지 로드 시 마감일 체크 실행
+        document.addEventListener('DOMContentLoaded', checkRegistrationDeadline);
     </script>
 
     <!-- Loading Modal -->
