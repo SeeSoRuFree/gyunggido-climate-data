@@ -10,10 +10,11 @@ This is a static website for the "경기도 AI 바이브코딩 해커톤 2025" (
 
 ### Core Pages
 
-- **index.html** - Main landing page with event information and registration form (~3,400 lines)
+- **index.html** - Main landing page with event information and registration form (~3,500 lines)
   - Contains registration form that submits to Google Apps Script
   - Features dark theme design with gradient animations
-  - Registration form at line 3283 with `GOOGLE_SCRIPT_URL` configuration
+  - `GOOGLE_SCRIPT_URL` at line 3312
+  - Automatic registration deadline handling at line 3489 (closes form after deadline)
   - Team size selection (1-person or 2-person team)
   - PC requirements notice (Mac recommended)
   - Responsive design with mobile/tablet optimizations
@@ -44,13 +45,14 @@ The site integrates with Google Apps Script for backend functionality. See GOOGL
 
 ### Key Integration Points
 
-1. **Registration Form** (index.html:3283)
+1. **Registration Form** (index.html:3312)
    ```javascript
    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/.../exec';
    ```
-   - POST request sends registration data (index.html:3360)
+   - POST request sends registration data
    - Response triggers success modal
    - Automatic email with QR code sent to registrant
+   - Automatic deadline check disables form after 2025-12-10 23:59 KST (line 3489)
 
 2. **Attendance System** (attendance.html:209)
    ```javascript
@@ -162,9 +164,16 @@ vercel --prod
 ## Modifying Configuration
 
 ### Changing Google Apps Script URL
-1. Update `GOOGLE_SCRIPT_URL` in index.html (line 3283)
+1. Update `GOOGLE_SCRIPT_URL` in index.html (line 3312)
 2. Update `SCRIPT_URL` in attendance.html (line 209)
 3. Follow setup instructions in GOOGLE_SHEETS_SETUP.md
+
+### Changing Registration Deadline
+1. Update the deadline date in index.html (line 3492):
+   ```javascript
+   const deadline = new Date('2025-12-10T23:59:59+09:00');
+   ```
+2. Update displayed deadline text in the form and hero sections
 
 ### Changing Attendance Token
 1. Update `VALID_TOKEN` in attendance.html (line 210)

@@ -1927,6 +1927,67 @@
         .result-content.error .result-button {
             background: linear-gradient(135deg, #ff6b6b, #ff5252);
         }
+
+        /* 공지 팝업 스타일 */
+        .notice-modal .notice-content {
+            max-width: 560px;
+            text-align: left;
+        }
+
+        .notice-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(109, 181, 68, 0.3);
+        }
+
+        .notice-header h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: var(--neon-green);
+        }
+
+        .notice-body {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .notice-body p {
+            margin: 0.75rem 0;
+        }
+
+        .notice-highlight {
+            background: rgba(109, 181, 68, 0.15);
+            border-left: 3px solid var(--neon-green);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .notice-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .notice-button {
+            background: linear-gradient(135deg, var(--neon-green), var(--primary-green));
+            color: #000;
+            border: none;
+            padding: 0.875rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .notice-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(109, 181, 68, 0.4);
+        }
     </style>
 </head>
 
@@ -3525,6 +3586,35 @@
 
         // 페이지 로드 시 마감일 체크 실행
         document.addEventListener('DOMContentLoaded', checkRegistrationDeadline);
+
+        // 공지 팝업 컨트롤
+        function showNoticeModal() {
+            const modal = document.getElementById('noticeModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.offsetHeight;
+                modal.classList.add('active');
+            }
+        }
+
+        function closeNoticeModal() {
+            const modal = document.getElementById('noticeModal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        // 페이지 로드 시 공지 팝업 표시 (마감 전에만)
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            const deadline = new Date('2025-12-10T23:59:59+09:00');
+            if (now <= deadline) {
+                setTimeout(showNoticeModal, 500);
+            }
+        });
     </script>
 
     <!-- Loading Modal -->
@@ -3547,6 +3637,30 @@
             <h3 id="resultTitle"></h3>
             <p id="resultMessage"></p>
             <button class="result-button" onclick="closeResultModal()">확인</button>
+        </div>
+    </div>
+
+    <!-- 공지 팝업 -->
+    <div id="noticeModal" class="custom-modal notice-modal">
+        <div class="custom-modal-content notice-content">
+            <div class="notice-header">
+                <span style="font-size: 1.5rem;">📢</span>
+                <h3>참가 신청 안내</h3>
+            </div>
+            <div class="notice-body">
+                <p>많은 관심에 감사드립니다!</p>
+
+                <div class="notice-highlight">
+                    <strong>💡 일반 트랙 참가자분들께</strong><br>
+                    신청하신 분들께 사전에 <strong>Claude Code 세팅 가이드</strong>를 전달드릴 예정입니다.<br><br>
+                    • 가이드를 따라 세팅을 완료해오시면 <strong>가산점</strong>을 드립니다<br>
+                    • 완료하지 못하셔도, 어디까지 진행하셨는지 공유해주시면 가산점 부여!<br>
+                    • 부담 없이 도전해보세요 🙂
+                </div>
+            </div>
+            <div class="notice-footer">
+                <button class="notice-button" onclick="closeNoticeModal()">확인했습니다</button>
+            </div>
         </div>
     </div>
 </body>
