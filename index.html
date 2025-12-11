@@ -3607,10 +3607,10 @@
             }
         }
 
-        // 페이지 로드 시 공지 팝업 표시 (마감 전에만)
+        // 페이지 로드 시 공지 팝업 표시 (행사일까지)
         document.addEventListener('DOMContentLoaded', function() {
             const now = new Date();
-            const deadline = new Date('2025-12-10T23:59:59+09:00');
+            const deadline = new Date('2025-12-13T23:59:59+09:00');
             if (now <= deadline) {
                 setTimeout(showNoticeModal, 500);
             }
