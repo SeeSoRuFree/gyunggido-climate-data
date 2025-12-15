@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HKXPBLL0H"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-9HKXPBLL0H');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After 해커톤 - 경기 기후 바이브코딩 해커톤</title>
+    <meta name="description" content="해커톤은 끝이 아닙니다. 3주간의 온라인 교육으로 프로젝트를 완성하세요 - 경기 기후 바이브코딩 해커톤 후속 프로그램">
+    <meta name="keywords" content="경기도, 해커톤, After 해커톤, 온라인 교육, 멘토링, AI, 바이브코딩, Claude Code">
+    <meta name="author" content="Second Team">
+    <link rel="canonical" href="https://climate-gg.second-team.com/after-hackathon.html">
+
+    <!-- 파비콘 -->
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://climate-gg.second-team.com/after-hackathon.html">
+    <meta property="og:title" content="After 해커톤 - 경기 기후 바이브코딩 해커톤">
+    <meta property="og:description" content="해커톤은 끝이 아닙니다. 3주간의 온라인 교육으로 프로젝트를 완성하세요">
+    <meta property="og:image" content="https://climate-gg.second-team.com/img/og-image.png">
+    <meta property="og:locale" content="ko_KR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://climate-gg.second-team.com/after-hackathon.html">
+    <meta name="twitter:title" content="After 해커톤 - 경기 기후 바이브코딩 해커톤">
+    <meta name="twitter:description" content="해커톤은 끝이 아닙니다. 3주간의 온라인 교육으로 프로젝트를 완성하세요">
+    <meta name="twitter:image" content="https://climate-gg.second-team.com/img/og-image.png">
+
+    <!-- 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-navy: #2A316A;
+            --primary-green: #6DB544;
+            --primary-cyan: #1297A3;
+            --accent-yellow: #FFD96E;
+            --dark-bg: #0a0e1a;
+            --dark-surface: #111827;
+            --dark-card: #1a1f35;
+            --neon-green: #6DB544;
+            --neon-cyan: #1297A3;
+            --neon-yellow: #FFD96E;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(109, 181, 68, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 36px;
+            width: auto;
+        }
+
+        .mobile-register-top {
+            display: none;
+        }
+
+        .nav-bottom {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-bottom li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-bottom li a:hover {
+            color: var(--neon-green);
+        }
+
+        .register-btn {
+            background: linear-gradient(135deg, var(--neon-green), var(--primary-green));
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(109, 181, 68, 0.3);
+            transition: all 0.3s;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(109, 181, 68, 0.5);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-description {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(109, 181, 68, 0.1);
+            border: 1px solid rgba(109, 181, 68, 0.3);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--neon-green);
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff, var(--neon-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* Cards Grid */
+        .platform-intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .platform-card {
+            background: rgba(26, 31, 53, 0.6);
+            border: 1px solid rgba(109, 181, 68, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.4s;
+            backdrop-filter: blur(20px);
+        }
+
+        .platform-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-green);
+            box-shadow: 0 20px 40px rgba(109, 181, 68, 0.2);
+        }
+
+        .platform-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .platform-card h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--neon-green);
+        }
+
+        .platform-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Photo Gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .photo-item {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(109, 181, 68, 0.2);
+            transition: all 0.4s;
+            aspect-ratio: 16 / 10;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-green);
+            box-shadow: 0 20px 40px rgba(109, 181, 68, 0.3);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Form Styles */
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(26, 31, 53, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(109, 181, 68, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(109, 181, 68, 0.3);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(109, 181, 68, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-hint {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .checkbox-group {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(109, 181, 68, 0.05);
+            border: 1px solid rgba(109, 181, 68, 0.2);
+            border-radius: 12px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: start;
+            gap: 0.7rem;
+            font-weight: 400;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.3rem;
+            cursor: pointer;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--neon-green), var(--primary-green));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1.5rem;
+            box-shadow: 0 0 30px rgba(109, 181, 68, 0.3);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(109, 181, 68, 0.5);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            padding: 4rem 2rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .footer-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .footer-video-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, var(--dark-bg) 0%, rgba(10, 14, 26, 0.7) 100%);
+        }
+
+        .footer-video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-green);
+        }
+
+        /* Modals */
+        .custom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .custom-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .custom-modal-content {
+            background: var(--dark-card);
+            border: 1px solid rgba(109, 181, 68, 0.3);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Loading Modal */
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .spinner-ring {
+            width: 100%;
+            height: 100%;
+            border: 3px solid rgba(109, 181, 68, 0.2);
+            border-top-color: var(--neon-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .spinner-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .loading-content p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Result Modal */
+        .result-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .result-close:hover {
+            color: #ffffff;
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-icon.success {
+            color: var(--neon-green);
+        }
+
+        .result-icon.error {
+            color: #ff4444;
+        }
+
+        .result-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-content p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .result-button {
+            padding: 0.8rem 2.5rem;
+            background: linear-gradient(135deg, var(--neon-green), var(--primary-green));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .result-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(109, 181, 68, 0.4);
+        }
+
+        /* Detail List Styles */
+        .detail-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .detail-item {
+            display: flex;
+            gap: 2rem;
+            align-items: start;
+            padding: 2rem;
+            background: rgba(26, 31, 53, 0.6);
+            border: 1px solid rgba(109, 181, 68, 0.2);
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+
+        .detail-item:hover {
+            border-color: var(--neon-green);
+            transform: translateX(10px);
+        }
+
+        .detail-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            min-width: 80px;
+            opacity: 0.3;
+        }
+
+        .detail-content h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+            color: var(--neon-green);
+        }
+
+        .detail-content p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        /* Notice Section Styles */
+        #notice ul li {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+        }
+
+        #notice ul li strong {
+            color: var(--neon-yellow);
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-bottom {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                height: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .section-description {
+                font-size: 1rem;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+                min-height: 50vh;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .platform-intro-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .photo-gallery {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .mobile-register-top {
+                display: block;
+            }
+
+            .nav-bottom {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(10, 14, 26, 0.95);
+                backdrop-filter: blur(20px);
+                border-top: 1px solid rgba(109, 181, 68, 0.2);
+                padding: 1rem;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0;
+                justify-items: center;
+            }
+
+            .nav-bottom li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .desktop-register {
+                display: none;
+            }
+
+            .custom-modal-content {
+                padding: 2rem;
+                width: 95%;
+            }
+
+            .detail-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .detail-number {
+                font-size: 2rem;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo-link">
+            <img src="img/gg-bi-logo.png" alt="경기도" class="logo">
+        </a>
+        <div class="mobile-register-top">
+            <a href="#register" class="register-btn">신청하기</a>
+        </div>
+        <ul id="navMenu" class="nav-bottom">
+            <li><a href="index.html#tracks">트랙</a></li>
+            <li><a href="index.html#schedule">일정</a></li>
+            <li><a href="after-hackathon.html">After 해커톤</a></li>
+            <li><a href="about.html">About</a></li>
+            <li class="desktop-register"><a href="#register" class="register-btn">신청하기</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                🚀 해커톤은 끝이 아닙니다
+            </div>
+            <h1>
+                After 해커톤
+            </h1>
+            <p class="hero-subtitle">
+                하루 만에 끝내기엔 아쉬운 여러분의 아이디어<br>
+                3주간의 온라인 교육과 함께 실제로 작동하는 서비스로 완성하세요
+            </p>
+        </div>
+    </section>
+
+    <!-- Program Introduction Section -->
+    <section id="program" class="section">
+        <div class="section-header">
+            <div class="section-label">PROGRAM</div>
+            <h2 class="section-title">
+                <span class="gradient-text">온라인 교육 프로그램</span>
+            </h2>
+            <p class="section-description">
+                해커톤에서 만든 프로토타입을 실제 사용 가능한 서비스로 발전시킬 수 있도록<br>
+                3주간 온라인으로 지속적인 교육과 멘토링을 제공합니다
+            </p>
+        </div>
+
+        <div class="platform-intro-grid">
+            <div class="platform-card">
+                <div class="icon">📚</div>
+                <h4>온라인 & 오프라인 교육</h4>
+                <p>주차별 온라인 교육 세션 제공. 매주 주말 1회, 성수동 바이브오피스에서 개발자와 함께 직접 개발하며 애로사항을 해결할 수 있습니다.</p>
+            </div>
+            <div class="platform-card">
+                <div class="icon">👨‍💻</div>
+                <h4>전담 개발자 배정</h4>
+                <p>실현 가능한 아이디어를 선정하여 전담 개발자를 배정합니다. (개발자 1인당 3~5명 담당) 프로젝트별 맞춤형 기술 지원을 받으세요.</p>
+            </div>
+            <div class="platform-card">
+                <div class="icon">💻</div>
+                <h4>클로드코드 유료 계정</h4>
+                <p>3주간 클로드코드 Pro 계정을 무료로 제공합니다. AI와 함께 더 빠르고 효율적으로 개발하세요.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Details Section -->
+    <section id="details" class="section" style="background: rgba(26, 31, 53, 0.3); padding: 5rem 2rem;">
+        <div class="section-header">
+            <div class="section-label">DETAILS</div>
+            <h2 class="section-title">
+                프로그램 상세
+            </h2>
+            <p class="section-description">
+                3주간의 여정, 무엇을 경험하게 되나요?
+            </p>
+        </div>
+
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div class="detail-list">
+                <div class="detail-item">
+                    <div class="detail-number">01</div>
+                    <div class="detail-content">
+                        <h4>신청 및 선발</h4>
+                        <p>해커톤에서 만든 아이디어를 실제로 구현하고 싶은 분들의 신청을 받습니다. 실현 가능성과 임팩트를 기준으로 참가자를 선정합니다.</p>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-number">02</div>
+                    <div class="detail-content">
+                        <h4>전담 개발자 배정</h4>
+                        <p>선정된 아이디어에 전담 개발자를 배정합니다. 개발자 1인당 3~5명의 참가자를 담당하며, 프로젝트 특성에 맞는 맞춤형 지원을 제공합니다.</p>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-number">03</div>
+                    <div class="detail-content">
+                        <h4>온라인 교육 세션</h4>
+                        <p>주차별로 온라인 교육을 진행합니다. 배포 전략, 사용자 경험 개선, 데이터 최적화 등 실제 서비스 운영에 필요한 실무 지식을 배웁니다.</p>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-number">04</div>
+                    <div class="detail-content">
+                        <h4>오프라인 개발 지원</h4>
+                        <p>매주 주말 1회, 성수동 바이브오피스에서 개발자와 함께 직접 개발할 수 있습니다. 막히는 부분이 있을 때 즉시 도움을 받으며 함께 바이브 작업을 진행합니다.</p>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-number">05</div>
+                    <div class="detail-content">
+                        <h4>클로드코드 Pro 계정 제공</h4>
+                        <p>3주간 클로드코드 유료 계정을 무료로 제공합니다. AI와 함께 코딩하며 개발 속도를 높이고, 더 나은 코드 품질을 경험하세요.</p>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-number">06</div>
+                    <div class="detail-content">
+                        <h4>서비스 런칭 및 경기도 공유</h4>
+                        <p>완성된 서비스는 실제로 런칭하여 경기도와 공유됩니다. 우수 사례는 경기도 홍보 채널을 통해 소개될 수 있습니다.</p>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-number">07</div>
+                    <div class="detail-content">
+                        <h4>비용 안내</h4>
+                        <p>서비스 런칭 시 발생하는 서버 비용, 도메인 비용 등 유료 비용은 참가자 본인이 부담합니다. 교육과 멘토링, 개발 지원은 모두 무료로 제공됩니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Photos Section -->
+    <section id="photos" class="section">
+        <div class="section-header">
+            <div class="section-label">MEMORIES</div>
+            <h2 class="section-title">
+                해커톤 현장
+            </h2>
+            <p class="section-description">
+                함께했던 열정과 도전의 순간들
+            </p>
+        </div>
+
+        <div class="photo-gallery">
+            <div class="photo-item">
+                <img src="img/photo/YOO00093.jpeg" alt="해커톤 현장 1">
+            </div>
+            <div class="photo-item">
+                <img src="img/photo/YOO00172.jpeg" alt="해커톤 현장 2">
+            </div>
+            <div class="photo-item">
+                <img src="img/photo/YOO00218.jpeg" alt="해커톤 현장 3">
+            </div>
+            <div class="photo-item">
+                <img src="img/photo/YOO00272.jpeg" alt="해커톤 현장 4">
+            </div>
+        </div>
+    </section>
+
+    <!-- Notice Section -->
+    <section id="notice" class="section">
+        <div style="max-width: 800px; margin: 0 auto; background: rgba(255, 215, 110, 0.1); border: 2px solid rgba(255, 215, 110, 0.3); border-radius: 16px; padding: 2.5rem;">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--neon-yellow); font-family: 'Outfit', sans-serif; font-weight: 700;">⚠️ 참여 전 꼭 확인하세요</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0;">•</span>
+                    본 프로그램은 <strong>100% 서비스 런칭을 담보하지 않습니다.</strong> 실현 가능성과 참가자의 적극적인 참여에 따라 결과가 달라질 수 있습니다.
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0;">•</span>
+                    서비스 런칭 시 발생하는 <strong>서버 비용, 도메인 비용 등 유료 비용은 참가자 본인이 부담</strong>합니다.
+                </li>
+                <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0;">•</span>
+                    완성된 서비스는 경기도와 공유되며, 우수 사례는 경기도 홍보 채널에 소개될 수 있습니다.
+                </li>
+                <li style="padding-left: 1.5rem; position: relative;">
+                    <span style="position: absolute; left: 0;">•</span>
+                    매주 주말 성수동 바이브오피스 참여는 선택사항이지만, <strong>적극적인 참여를 권장</strong>합니다.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer with Video Background -->
+    <footer>
+        <div class="footer-video-bg">
+            <video autoplay muted loop playsinline>
+                <source src="https://climate.gg.go.kr/static/images/video/main-1.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="footer-content">
+            <p style="font-size: 1rem; opacity: 0.85; line-height: 1.8; margin-bottom: 2rem;">
+                이번 행사는 AI dev Agency 시소에서 운영합니다. 행사 및 시소에 대해 궁금하시면 <a href="about.html" style="color: var(--neon-cyan); text-decoration: underline; font-weight: 600;">About 페이지</a>를 확인해보세요.
+            </p>
+
+            <div style="padding-top: 2rem; border-top: 1px solid rgba(109, 181, 68, 0.2);">
+                <p style="opacity: 0.8; margin-bottom: 0.5rem; font-size: 0.95rem;">문의: partner@seeso.kr</p>
+                <p style="opacity: 0.8; margin-bottom: 0.5rem; font-size: 0.95rem;">📅 2025년 12월 13일 (토) | 📍 <del style="opacity:0.6">경기도의회</del> → 경기신용보증재단</p>
+                <p style="opacity: 0.5; font-size: 0.85rem; margin-top: 1.5rem;">
+                    운영: 시소(Second Team) | 주최: 경기도
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
