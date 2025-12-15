@@ -227,6 +227,12 @@
             display: none;
         }
 
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
         .desktop-register {
             display: flex;
             align-items: center;
@@ -1456,19 +1462,33 @@
                 padding: 1rem 1.5rem;
             }
 
-            .logo-link {
+            .nav-left {
+                grid-column: 1 / -1;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                grid-template-rows: auto auto;
+                gap: 0.8rem;
+            }
+
+            .nav-left .logo-link {
                 grid-column: 1;
                 grid-row: 1;
             }
 
-            .logo-link .logo {
+            .nav-left .logo {
                 height: 35px;
+            }
+
+            .nav-left .nav-bottom {
+                grid-column: 1 / -1;
+                grid-row: 2;
             }
 
             .mobile-register-top {
                 display: block !important;
                 grid-column: 2;
                 grid-row: 1;
+                align-self: start;
             }
 
             .mobile-register-top .register-btn {
@@ -1478,11 +1498,6 @@
 
             .desktop-register {
                 display: none !important;
-            }
-
-            nav ul.nav-bottom {
-                grid-column: 1 / -1;
-                grid-row: 2;
             }
 
             nav ul {
@@ -2007,17 +2022,19 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="index.html" class="logo-link">
-            <img src="img/gg-bi-logo.png" alt="경기도" class="logo">
-        </a>
+        <div class="nav-left">
+            <a href="index.html" class="logo-link">
+                <img src="img/gg-bi-logo.png" alt="경기도" class="logo">
+            </a>
+            <ul id="navMenu" class="nav-bottom">
+                <li><a href="#tracks">트랙</a></li>
+                <li><a href="#schedule">일정</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
         <div class="mobile-register-top">
             <a href="after-hackathon.html" class="register-btn">After 해커톤</a>
         </div>
-        <ul id="navMenu" class="nav-bottom">
-            <li><a href="#tracks">트랙</a></li>
-            <li><a href="#schedule">일정</a></li>
-            <li><a href="about.html">About</a></li>
-        </ul>
         <div class="desktop-register">
             <a href="after-hackathon.html" class="register-btn">After 해커톤</a>
         </div>
