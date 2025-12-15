@@ -37,9 +37,13 @@ function doPost(e) {
       ]);
     }
 
+    // KST 시간 생성
+    var now = new Date();
+    var kstTimestamp = Utilities.formatDate(now, 'Asia/Seoul', 'yyyy-MM-dd HH:mm:ss');
+
     // 데이터 추가
     sheet.appendRow([
-      data.timestamp || new Date().toISOString(),
+      kstTimestamp,
       data.name || '',
       data.email || '',
       data.phone || '',
