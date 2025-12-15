@@ -238,6 +238,36 @@
             align-items: center;
         }
 
+        /* After 해커톤 버튼 스타일 (신청 마감 로직과 독립) */
+        .after-hackathon-btn {
+            background: linear-gradient(135deg, var(--neon-green), var(--primary-green));
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(109, 181, 68, 0.3);
+            display: inline-block;
+        }
+
+        .after-hackathon-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(109, 181, 68, 0.5);
+            color: white;
+        }
+
+        /* 데스크톱: 모바일 버튼 숨김 */
+        .mobile-after-hackathon {
+            display: none;
+        }
+
+        /* 데스크톱: After 해커톤 버튼 래퍼 */
+        .after-hackathon-btn-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
         /* Hero Section with Video Background */
         .hero {
             min-height: 100vh;
@@ -1500,6 +1530,23 @@
                 display: none !important;
             }
 
+            /* After 해커톤 모바일 버튼 표시 */
+            .mobile-after-hackathon {
+                display: block !important;
+                grid-column: 2;
+                grid-row: 1;
+                align-self: start;
+            }
+
+            .mobile-after-hackathon .after-hackathon-btn {
+                font-size: 0.85rem;
+                padding: 0.5rem 1.2rem;
+            }
+
+            .after-hackathon-btn-wrapper {
+                display: none !important;
+            }
+
             nav ul {
                 display: flex !important;
                 position: static;
@@ -2032,11 +2079,11 @@
                 <li><a href="about.html">About</a></li>
             </ul>
         </div>
-        <div class="mobile-register-top">
-            <a href="after-hackathon.html" class="register-btn">After 해커톤</a>
+        <div class="mobile-after-hackathon">
+            <a href="after-hackathon.html" class="after-hackathon-btn">After 해커톤</a>
         </div>
-        <div class="desktop-register">
-            <a href="after-hackathon.html" class="register-btn">After 해커톤</a>
+        <div class="after-hackathon-btn-wrapper">
+            <a href="after-hackathon.html" class="after-hackathon-btn">After 해커톤</a>
         </div>
     </nav>
 
